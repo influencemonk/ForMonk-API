@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class NetworkHandler {
 	}
 	
 	private static NetworkHandler instance;
+	private final String USER_AGENT = "Mozilla/5.0";
 	
 	public static NetworkHandler getInstance() {
 		
@@ -37,7 +39,9 @@ public class NetworkHandler {
 		
 	}
 	
-	public Object sendGet(String baseUrl , Map<String , String> queries) throws IOException {
+	public String formatString(String baseUrl , Map<String , String> queries) 
+			throws MalformedURLException {
+		
 		
 		String queryString = "";
 		
@@ -47,7 +51,7 @@ public class NetworkHandler {
 			
 			for(String key : queries.keySet()) {
 				
-				queryString = key+"="+queries.get(key)+"&";
+				queryString += key+"="+queries.get(key)+"&";
 				
 			}
 			
@@ -58,9 +62,18 @@ public class NetworkHandler {
 		
 		URL mainUrl = new URL(baseUrl + queryString);
 		
+		return mainUrl.toString();
+	}
+	
+	public String sendGet(String baseUrl , Map<String , String> queries) throws IOException {
+		
+		URL mainUrl = new URL(formatString(baseUrl , queries));
+		
 		GeneralUtils.printStackTrace("GET : " + mainUrl.toString());
 		
 		HttpURLConnection connection = (HttpURLConnection) mainUrl.openConnection();
+		
+		connection.setRequestProperty("User-Agent", USER_AGENT);
 		
 		connection.setRequestMethod("GET");
 		
@@ -84,7 +97,7 @@ public class NetworkHandler {
 			}
 			in.close();
 			
-			return response;
+			return response.toString();
 			
 		}
 		
