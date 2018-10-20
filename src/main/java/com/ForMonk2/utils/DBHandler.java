@@ -12,11 +12,12 @@ public class DBHandler{
 	private MongoClient mongoClient;
 	private boolean connectionExists = false;
 	private DB monkDB;
-	
-	
+
 	protected DBHandler() {
 		try {
-			
+
+			mongoClient = new MongoClient();
+
 			if(! connectionExists) {
 				
 				mongoClient = new MongoClient(Constants.DB_HOST , Constants.DB_PORT);
@@ -34,7 +35,7 @@ public class DBHandler{
 				
 			}
 			
-			
+
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			connectionExists = false;
@@ -42,9 +43,7 @@ public class DBHandler{
 		
 	}
 	
-	
-	
-	
+
 	private DB getMonkDB(){
 		
 		if(monkDB != null ) {

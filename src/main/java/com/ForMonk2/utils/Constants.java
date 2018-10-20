@@ -6,6 +6,10 @@ public class Constants {
 	public final static String DB_HOST = "localhost";
 	public final static int DB_PORT = 27017;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> tanmay
 	
 	public final static class DB_CREDENTIALS {
 		
@@ -32,4 +36,8 @@ public class Constants {
 	
 	
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> tanmay
 }
