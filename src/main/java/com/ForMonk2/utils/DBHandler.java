@@ -25,7 +25,7 @@ public class DBHandler{
 																 Constants.DB_CREDENTIALS.DB_NAME , 
 																 Constants.DB_CREDENTIALS.PASSWORD.toCharArray());
 				
-				printStackTrace("Connection created successfully");
+				GeneralUtils.printStackTrace("Connection created successfully");
 				
 				monkDB =  mongoClient.getDB(Constants.DB_CREDENTIALS.DB_NAME);
 				
@@ -43,14 +43,7 @@ public class DBHandler{
 	}
 	
 	
-	private void printStackTrace(String message) {
-		
-		if(message != null ) {
-			if(message.trim() != "") {
-				System.out.println(message);
-			}
-		}
-	}
+	
 	
 	private DB getMonkDB(){
 		
