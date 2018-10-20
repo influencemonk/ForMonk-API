@@ -24,7 +24,7 @@ public class Constants {
 		
 		public final static String CLIENT_ID = "3e7317c616f74b89840af96f97e7a56b";
 		
-		public final static String REDIRECT_URL = "http://"+DB_HOST+":"+DB_PORT+"/callBackurl";
+		public final static String REDIRECT_URL = "http://localhost:8080/instaCallbackUrl";
 		
 		public final static String RESPONSE_TYPE = "code";
 		
