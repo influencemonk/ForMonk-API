@@ -6,10 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-
-import java.util.HashMap;
+import java.util.Map;
 
 public class NetworkHandler {
 	
@@ -39,7 +37,7 @@ public class NetworkHandler {
 		
 	}
 	
-	public Object sendGet(String baseUrl , HashMap<String , String> queries) throws IOException {
+	public Object sendGet(String baseUrl , Map<String , String> queries) throws IOException {
 		
 		String queryString = "";
 		
