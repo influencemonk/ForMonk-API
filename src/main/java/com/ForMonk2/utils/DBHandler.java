@@ -1,51 +1,42 @@
 package com.ForMonk2.utils;
 
-import java.net.UnknownHostException;
-
-import com.mongodb.DB;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential; 
+import com.mongodb.MongoCredential;
+import com.mongodb.client.MongoDatabase; 
 
-public class DBHandler {
+
+public class DBHandler{
 	
 	
 	private MongoClient mongoClient;
-	private boolean connectionExists = false;
-	private DB monkDB;
+	private static boolean connectionExists = false;
+	private static MongoDatabase monkDB;
+	
 	
 	protected DBHandler() {
-		try {
-
-			mongoClient = new MongoClient();
-	
-			if(! connectionExists) {
-				
-				mongoClient = new MongoClient(Constants.DB_HOST , Constants.DB_PORT);
-				
-				MongoCredential credential = MongoCredential.createMongoCRCredential(Constants.DB_CREDENTIALS.USERNAME,
-																 Constants.DB_CREDENTIALS.DB_NAME , 
-																 Constants.DB_CREDENTIALS.PASSWORD.toCharArray());
-				
-				GeneralUtils.printStackTrace("Connection created successfully");
-				
-				monkDB =  mongoClient.getDB(Constants.DB_CREDENTIALS.DB_NAME);
-				
-				connectionExists = true;
-				
-				
-			}
+		if(! connectionExists) {
 			
+			mongoClient = new MongoClient(Constants.DB_HOST , Constants.DB_PORT);
 			
+			@SuppressWarnings("unused")
+			MongoCredential credential = MongoCredential.createCredential(Constants.DB_CREDENTIALS.USERNAME,
+															 Constants.DB_CREDENTIALS.DB_NAME , 
+															 Constants.DB_CREDENTIALS.PASSWORD.toCharArray());
+			
+		
+			
+			monkDB =  mongoClient.getDatabase(Constants.DB_CREDENTIALS.DB_NAME);
+			
+			connectionExists = true;
 
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
 		}
 		
 	}
 	
+
 	
-	
-	private DB getMonkDB(){
+	protected static MongoDatabase getMonkDB(){
+
 		
 		if(monkDB != null ) {
 			
@@ -58,4 +49,6 @@ public class DBHandler {
 			throw new RuntimeException("Sorry couldn't connect to "+Constants.DB_CREDENTIALS.DB_NAME);
 		}
 	}
+	
+	
 }
