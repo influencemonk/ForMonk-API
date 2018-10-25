@@ -1,15 +1,14 @@
 package com.ForMonk2.helpers;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
-import com.ForMonk2.models.ApiResponsModel;
-import com.ForMonk2.models.InstagramModels;
-import com.ForMonk2.models.InstagramModels.OAuthExceptionModel;
+
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.GeneralUtils;
 import com.ForMonk2.utils.NetworkHandler;
-import com.google.gson.Gson;
+
 
 public class InstagramHelper {
 
@@ -29,7 +28,35 @@ public class InstagramHelper {
 					, queryMap);		
 			
 		} catch (IOException e) {
+			
 			e.printStackTrace();
+			
+			return null;
+		}
+		
+	}
+	
+	public static String getAccessToken(String authCode) {
+		
+		GeneralUtils.printStackTrace(authCode);
+		
+		Map<String,String> query = new HashMap<String,String>();
+		
+		query.put("client_id", Constants.INSTAGRAM_CONSTANTS.CLIENT_ID);
+		query.put("client_secret" , Constants.INSTAGRAM_CONSTANTS.CLIENT_SECRET);
+		query.put("grant_type", Constants.INSTAGRAM_CONSTANTS.GRANT_TYPE);
+		query.put("redirect_uri", Constants.INSTAGRAM_CONSTANTS.REDIRECT_URL);
+		query.put("code", authCode);
+		
+		try {
+			
+			String response = NetworkHandler.getInstance().sendGet(Constants.INSTAGRAM_CONSTANTS.ACCESS_TOKEN_BASE_URL, query);
+			
+			return response;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
 			return null;
 		}
 		

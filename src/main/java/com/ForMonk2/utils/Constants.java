@@ -22,13 +22,19 @@ public class Constants {
 		
 		public final static String BASE_URL = "https://api.instagram.com/oauth/authorize";
 		
+		public final static String ACCESS_TOKEN_BASE_URL = "https://api.instagram.com/oauth/access_token";
+		
 		public final static String CLIENT_ID = "3e7317c616f74b89840af96f97e7a56b";
 		
 		public final static String REDIRECT_URL = "http://localhost:8080/instaCallbackUrl";
 		
+		public final static String CLIENT_SECRET = "4057a80cc984462fbe47049b2a99fdd1";
+		
 		public final static String RESPONSE_TYPE = "code";
 		
 		public final static String SCOPE = "basic+comments+relationships+likes+follower_list";
+		
+		public final static String GRANT_TYPE = "authorization_code";
 		
 		public static Map<String, String> getAuthTokenQuery() {
 

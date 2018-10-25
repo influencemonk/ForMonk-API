@@ -1,4 +1,4 @@
-package com.ForMonk2.models;
+package com.ForMonk2.model;
 
 public class ApiResponsModel<T> {
 

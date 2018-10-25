@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ForMonk2.helpers.InstagramHelper;
-import com.ForMonk2.models.ApiResponsModel;
+import com.ForMonk2.model.ApiResponsModel;
+import com.ForMonk2.utils.NetworkHandler;
 
 @Controller
 public class InstagramController {
@@ -46,7 +47,7 @@ public class InstagramController {
 			defaultValue="NA")
 			String code) {
 		
-		return code;
+		return InstagramHelper.getAccessToken(code);
 		
 	}
 	
