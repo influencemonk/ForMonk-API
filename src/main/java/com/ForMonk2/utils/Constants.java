@@ -6,15 +6,15 @@ import java.util.Map;
 
 public class Constants {
 	
-	public final static String DB_HOST = "localhost";
-	public final static int DB_PORT = 27017;
+	public final static String DB_HOST = "ds143603.mlab.com";
+	public final static int DB_PORT = 43603;
 
 	
 	public final static class DB_CREDENTIALS {
 		
-		public final static String 	USERNAME = "";
-		public final static String PASSWORD = "";
-		public final static String DB_NAME = "MonkDB";
+		public final static String 	USERNAME = "android23235616";
+		public final static String PASSWORD = "wart414ways465";
+		public final static String DB_NAME = "infodb";
 		
 	}
 	

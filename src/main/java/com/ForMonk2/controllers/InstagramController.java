@@ -23,16 +23,10 @@ public class InstagramController {
 		String response = InstagramHelper.userLogin();
 		
 		if(response != null ) {
-			
-			
 			return new RedirectView(response);
 			
-			
 		}else {
-			
-			
 			return new RedirectView("Null Object");
-			
 			
 		}
 		
@@ -42,6 +36,7 @@ public class InstagramController {
 	@ResponseBody
 	
 	public String callBackurl(
+			
 			@RequestParam(name="code", 
 			required=false, 
 			defaultValue="NA")
@@ -49,6 +44,11 @@ public class InstagramController {
 		
 		return InstagramHelper.getAccessToken(code);
 		
+	}
+	
+	@GetMapping("/ping")
+	public boolean ping() {
+		return true;
 	}
 	
 
