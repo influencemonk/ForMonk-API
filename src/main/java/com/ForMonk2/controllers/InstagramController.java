@@ -44,9 +44,9 @@ public class InstagramController {
 		
 	}
 	
-	@GetMapping("/ping")
-	public boolean ping() {
-		return true;
+	@GetMapping("/")
+	public String ping() {
+		return "true";
 	}
 	
 
