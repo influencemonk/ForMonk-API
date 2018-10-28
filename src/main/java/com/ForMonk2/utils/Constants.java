@@ -15,7 +15,7 @@ public class Constants {
 		public final static String 	USERNAME = "android23235616";
 		public final static String PASSWORD = "wart414ways465";
 		public final static String DB_NAME = "infodb";
-		
+		public final static String USER1_CRED = "mongodb://android23235616:wart414ways465@ds143603.mlab.com:43603/infodb";
 	}
 	
 	public final static class INSTAGRAM_CONSTANTS{

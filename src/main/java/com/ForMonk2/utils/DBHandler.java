@@ -1,6 +1,7 @@
 package com.ForMonk2.utils;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.client.MongoDatabase;
 
@@ -13,7 +14,9 @@ public class DBHandler {
 	protected DBHandler() {
 		if (!connectionExists) {
 
-			mongoClient = new MongoClient(Constants.DB_HOST, Constants.DB_PORT);
+			MongoClientURI uri = new MongoClientURI(Constants.DB_CREDENTIALS.USER1_CRED);
+			
+			mongoClient = new MongoClient(uri);
 
 			@SuppressWarnings("unused")
 			MongoCredential credential = MongoCredential.createCredential(Constants.DB_CREDENTIALS.USERNAME,

@@ -1,15 +1,17 @@
 package com.ForMonk2.helpers;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
+
 import java.util.HashMap;
 import java.util.Map;
-
-
+import com.ForMonk2.utils.CollectionUtils.Collections;
+import com.ForMonk2.utils.CollectionUtils.Operations;
+import com.ForMonk2.model.AccessTokenResponseModel;
+import com.ForMonk2.utils.CollectionHandler;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.GeneralUtils;
 import com.ForMonk2.utils.NetworkHandler;
-import com.jayway.jsonpath.internal.function.Parameter;
+import com.google.gson.Gson;
 
 
 
@@ -20,7 +22,6 @@ public class InstagramHelper {
 	public static String userLogin() {
 		
 		Map<String,String> queryMap = Constants.INSTAGRAM_CONSTANTS.getAuthTokenQuery();
-		
 		GeneralUtils.printStackTrace(queryMap.toString());
 		
 		try {
@@ -60,6 +61,10 @@ public class InstagramHelper {
 		try {
 			
 			String response = NetworkHandler.getInstance().sendPOST(Constants.INSTAGRAM_CONSTANTS.ACCESS_TOKEN_BASE_URL, query);
+			
+			AccessTokenResponseModel responseObject = new Gson().fromJson(response, AccessTokenResponseModel.class);
+			
+			CollectionHandler.startOperation(responseObject, Collections.MonkDB, Operations.create);
 			
 			return response;
 			

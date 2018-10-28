@@ -2,11 +2,11 @@ package com.ForMonk2.utils;
 
 public class CollectionUtils {
 	
-	static enum Collections {
+	public static enum Collections {
 		MonkDB, RegistrationDB, ProfileInfoDB
 	}
 	
-	static enum Operations {
+	public static enum Operations {
 		create, read, update, delete 
 	}
 	
