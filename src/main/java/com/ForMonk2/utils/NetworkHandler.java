@@ -73,43 +73,17 @@ public class NetworkHandler {
 	
 	public String formatString(Map<String,String> params) throws UnsupportedEncodingException {
 		
-//		if(params == null ) {
-//			return "";
-//		}
-//		
-//		StringBuilder result = new StringBuilder();
-//        boolean first = true;
-//        for(Map.Entry<String, String> entry : params.entrySet()){
-//            if (first)
-//                first = false;
-//            else
-//                result.append("&");
-//
-//            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-//            result.append("=");
-//            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-//        }
-//        
-//        GeneralUtils.printStackTrace(result.toString());
-//
-//        return result.toString();
-		
+
 
 		String queryString = "";
 		
 		if(params != null ) {
 					
-			
-			for(String key : params.keySet()) {
-				
+			for(String key : params.keySet()) 
 				queryString += key+"="+URLEncoder.encode(params.get(key), "UTF-8")+"&";
-				
-			}
 			
 			queryString = queryString.substring(0 , queryString.length() - 1);
-			
 			GeneralUtils.printStackTrace(queryString);
-			
 			return queryString;
 			
 		}else {
@@ -122,22 +96,17 @@ public class NetworkHandler {
 	public String sendGet(String baseUrl , Map<String , String> queries) throws IOException {
 		
 		URL mainUrl = new URL(formatString(baseUrl , queries));
-		
 		GeneralUtils.printStackTrace("GET : " + mainUrl.toString());
 		
 		HttpURLConnection connection = (HttpURLConnection) mainUrl.openConnection();
-		
 		connection.setRequestProperty("User-Agent", USER_AGENT);
-		
 		connection.setRequestMethod("GET");
 		
 		int responseCode = connection.getResponseCode();
 		
 		if(responseCode != 200) {
-			
 			throw new RuntimeException("GET request at "+mainUrl.toString() 
-										+" \n responseCode : "+responseCode);
-			
+										+" \n responseCode : "+responseCode);				
 		}else {
 			
 			BufferedReader in = new BufferedReader(

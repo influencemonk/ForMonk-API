@@ -1,10 +1,12 @@
 package com.ForMonk2.model;
 
-public class ApiResponsModel<T> {
+public class ApiResponseModel<T> {
 
 	private T serverObject;
 	private boolean error;
 	private String message;
+	
+	public ApiResponseModel() {}
 	
 	public T getServerObject() {
 		return serverObject;

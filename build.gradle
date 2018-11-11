@@ -36,9 +36,12 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
-	
+	//https://mvnrepository.com/artifact/javax.activation/activation
+	compile group: 'javax.activation', name: 'activation', version: '1.1.1'
 
-	implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
+	//https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+	compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+	
 
 	
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
