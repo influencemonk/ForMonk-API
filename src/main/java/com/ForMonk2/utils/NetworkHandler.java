@@ -119,7 +119,7 @@ public class NetworkHandler {
 //		
 	}
 	
-	public String sendGet(String baseUrl , Map<String , String> queries) throws IOException {
+	public String sendGet(String baseUrl , Map<String , String> queries, Map<String, String> headers) throws IOException {
 		
 		URL mainUrl = new URL(formatString(baseUrl , queries));
 		
@@ -127,9 +127,16 @@ public class NetworkHandler {
 		
 		HttpURLConnection connection = (HttpURLConnection) mainUrl.openConnection();
 		
-		connection.setRequestProperty("User-Agent", USER_AGENT);
+		connection.setRequestProperty("user-agent", USER_AGENT);
+		
+		if(headers != null) {
+			for(String key: headers.keySet()) {
+				connection.setRequestProperty(key, headers.get(key));
+			}
+		}
 		
 		connection.setRequestMethod("GET");
+		
 		
 		int responseCode = connection.getResponseCode();
 		
@@ -162,7 +169,7 @@ public class NetworkHandler {
 		URL obj = new URL(baseUrl);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
-		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("user-agent", USER_AGENT);
 
 		// For POST only - START
 		con.setDoOutput(true);
