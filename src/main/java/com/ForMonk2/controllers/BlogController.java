@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ForMonk2.helpers.BlogHelper;
 import com.ForMonk2.model.BlogModels.SendEmailRequest;
+import com.ForMonk2.utils.Constants;
 
 @Controller
 @RequestMapping("/Blog")
 public class BlogController {
 
-	@CrossOrigin(origins = "http://localhost:5000")
+	@CrossOrigin(origins = Constants.MAIN_ENDPOINT)
 	@RequestMapping(value = "/sendEmail", method = RequestMethod.POST)
     public @ResponseBody Object sendEmail(@RequestBody SendEmailRequest sendEmailRequest) {
 		
