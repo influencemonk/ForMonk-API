@@ -196,6 +196,8 @@ public class InstaCrawlerHelper {
 			e.printStackTrace();
 		}
 		
+		resposneObj.put("data", profileInfoObj);
+		
 		response = resposneObj.toJSONString();
 		
 		return response;

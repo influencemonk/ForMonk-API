@@ -1,5 +1,3 @@
-
-
 package com.ForMonk2.utils;
 
 import java.io.BufferedReader;
@@ -164,6 +162,11 @@ public class NetworkHandler {
 		}
 		
 	}
+	
+	public String sendGet(String baseUrl , Map<String , String> queries) throws IOException {
+		return sendGet(baseUrl, queries, null);
+	}
+	
 	
 	public String sendPOST(String baseUrl , Map<String,String> queries) throws IOException {
 		URL obj = new URL(baseUrl);

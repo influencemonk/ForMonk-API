@@ -9,7 +9,7 @@ public class TestDrive {
 	
 	public static void main(String[] args) {
 		InstaCrawlerHelper helper = new InstaCrawlerHelper();
-		helper.getProfileData("iishortgirlii");
+		helper.getProfileData("ishaanshakunt");
 	}
 
 }
