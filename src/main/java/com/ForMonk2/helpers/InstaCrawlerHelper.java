@@ -197,7 +197,65 @@ public class InstaCrawlerHelper {
 		}
 		
 		response = resposneObj.toJSONString();
+		
 		return response;
+	}
+	
+	/*
+	 * Method to get instant instagram profile data of top 12 posts of a user 
+	 */
+	public JSONObject getInstantProfileData(String username) {
+		
+		JSONObject responseObj = new JSONObject();
+		
+
+		JSONParser parser = new JSONParser();
+		
+		CrawlerDataParser crawlerParser = new CrawlerDataParser();
+		
+		NetworkHandler networkHandler = NetworkHandler.getInstance();
+		
+		CookieManager cookieManager = new CookieManager();
+		CookieHandler.setDefault(cookieManager);
+		
+		Map<String, String> queries = new HashMap<String, String>();
+		queries.put("insta_id", username);
+		
+		
+		try {
+			
+			// Get profile info from PHP crawler:
+			String crawlerResposne = networkHandler.sendGet(Constants.CRAWLER_CONSTANTS.CRAWLER_URL, queries, null);
+			
+			if(!crawlerResposne.isEmpty() && null != crawlerResposne && !crawlerResposne.equals("")) {
+			
+			JSONObject crawlerResponseObj = (JSONObject) parser.parse(crawlerResposne);
+			//System.out.println("Response: " + crawlerResponseObj.toJSONString());
+			
+			// Parse the received profile data:
+			responseObj.put("data", crawlerParser.getInstantProfileInfo(crawlerResponseObj));
+			responseObj.put("result", "true");
+			}
+			else {
+				responseObj.put("result", "false");
+				responseObj.put("message", "Failed to receive data!");
+			}
+			
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+			responseObj.put("result", "false");
+			System.out.println("IO Exception occured!");
+		} catch (ParseException e) {
+			responseObj.put("result", "false");
+			System.out.println("Parse Exception occured!");
+			e.printStackTrace();
+		}
+
+		
+		System.out.println("response: "+ responseObj.toJSONString());
+		return responseObj;
+		
 	}
 	
 }

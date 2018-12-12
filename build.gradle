@@ -19,6 +19,17 @@ group = 'com.ForMonk2'
 version = '4'
 sourceCompatibility = 1.8
 
+jar {
+    manifest {
+        attributes 'Implementation-Title': group,
+                   'Implementation-Version': version
+    }
+}
+
+bootJar {
+	launchScript()
+}
+
 repositories {
 	mavenCentral()
 }
@@ -35,6 +46,10 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	
+	// https://mvnrepository.com/artifact/org.json/json
+	compile group: 'org.json', name: 'json', version: '20160810'
+	
 
 	
 

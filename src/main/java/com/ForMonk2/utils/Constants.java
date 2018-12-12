@@ -58,7 +58,7 @@ public class Constants {
 	}
 	
 	public final static class CRAWLER_CONSTANTS {
-		public static final String CRAWLER_URL = "https://influencemonk.com/insta-data/parser.php";
+		public static final String CRAWLER_URL = "http://influencemonk.com/insta-data/parser.php";
 		
 	}
 	
