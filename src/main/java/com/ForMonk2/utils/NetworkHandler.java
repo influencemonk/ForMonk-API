@@ -12,7 +12,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import com.google.gson.Gson;
 
 public class NetworkHandler {
 	

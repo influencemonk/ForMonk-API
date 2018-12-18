@@ -26,12 +26,10 @@ public class CrawlerController {
 		return crawlerHelper.getInstantProfileData(username);		
 	}
 	
-/*	@GetMapping("/instantInstaDataXml")
+	@GetMapping("/postsData")
 	@ResponseBody
 	public String getInstantInstaDataXml(@RequestParam(name="username", required=true) String username) {		
 		InstaCrawlerHelper crawlerHelper = new InstaCrawlerHelper();
-		//String xml = XML.toString(crawlerHelper.getInstantProfileData(username), "InstaProfile");
-		//System.out.println("XML: "+xml);
-		return null;	
-	}*/
+		return crawlerHelper.getPostsData(username);
+	}
 }
