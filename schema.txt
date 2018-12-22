@@ -1,0 +1,124 @@
+---------------------------------------------
+ISC: Influencer Search Collection/View
+---------------------------------------------
+InfluencerSearchWidget :
+{
+	fullName: 
+	{
+		firstName: "Soumya",
+		lastName: "Deb"
+	},
+	username: "_soumyadeb_",
+	influencerId: 12324,
+}
+
+--------------------------------------------------
+ISDC: Influencer Search Details Collection/View
+--------------------------------------------------
+{
+	fullName: 
+	{
+		fisrtName: "Soumya",
+		lastName: "Deb"
+	},
+	username: "_soumyadeb_",
+	influencerId: 12324,
+	category: [],
+	elvaluationDetails:
+	{
+		er: 34.5,
+		followers: 143,
+		avgLikes: 56.2,
+		totalLikes: 2331,
+		avgComments: 12.1,
+		totalComments: 123
+	}
+}
+
+
+---------------------------------------------
+IMC: Influencer Master Collection
+---------------------------------------------
+{
+	_id: "5j34jfjoif38",
+	username: "_soumyadeb_"
+}
+
+---------------------------------------------
+IDC: Influencer Details Collection
+---------------------------------------------
+{	
+	_id: "5kdfnkwer32",
+	influencerId: "5j34jfjoif38",
+	profileSummary:
+	{	
+		fullName: 
+		{
+			firstName: "Soumya",
+			lastName: "Deb"
+		},
+		contactDetails:
+		[
+			{
+				type: "email",
+				value: "soumyadeb1809@gmail.com",
+				tags: "personal"
+			}
+		]
+		username: "_soumyadeb_",
+		category: [],
+		elvaluationDetails:
+		{
+			er: 34.5,
+			followers: 143,
+			avgLikes: 56.2,
+			totalLikes: 2331,
+			avgComments: 12.1,
+			totalComments: 123
+		},
+		profilePicture: "http://instagram.com/dask/askdkjnjks/dash.jpg"
+	},
+	socialIds: 
+	[
+		{
+			type: "instagram",
+			socialUsername: "_soumyadeb_",
+			socialProfilePicture: "http://instagram.com/dask/askdkjnjks/dash.jpg"
+		}
+	],
+	socialMasterId: "5kwjfjdwjfjd",
+		
+}
+
+-----------------------------------------------
+SMC: Social Master Collection
+-----------------------------------------------
+{
+	_id: "5kwjfjdwjfjd",
+	influencerId: "5j34jfjoif38",
+	credentials: 
+	[
+		{
+			accessToken: "sdkfjknwhebuyfguyg",
+			refreshToken: "324bwhqdeu3278mfd",
+			type: "instagram"
+			id: "23454352345",
+		}
+	],
+	followerTrendMasterId: "567djhfdf3"
+	
+}
+
+-----------------------------------------------
+FTMC: Follower Trend Master Collection
+-----------------------------------------------
+{
+	_id: "567djhfdf3",
+	data: 
+	[
+		{
+			timestamp: 15387237342,
+			followers: 1234
+		}
+	]
+}

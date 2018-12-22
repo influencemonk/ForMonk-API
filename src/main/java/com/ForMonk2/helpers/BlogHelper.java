@@ -22,9 +22,6 @@ public class BlogHelper {
 	public static ApiResponseModel<String> sendEmail(SendEmailRequest sendEmailRequest) throws Exception {
 		
 		ApiResponseModel<String> response = new ApiResponseModel<>();
-		
-		
-
 
 		String emailPort = "587";		
 		Properties properties = System.getProperties();
