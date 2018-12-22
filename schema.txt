@@ -9,7 +9,7 @@ InfluencerSearchWidget :
 		lastName: "Deb"
 	},
 	username: "_soumyadeb_",
-	influencerId: 12324,
+	userId: 12324,
 }
 
 --------------------------------------------------
@@ -22,7 +22,7 @@ ISDC: Influencer Search Details Collection/View
 		lastName: "Deb"
 	},
 	username: "_soumyadeb_",
-	influencerId: 12324,
+	userId: 12324,
 	category: [],
 	elvaluationDetails:
 	{
@@ -49,7 +49,7 @@ IDC: Influencer Details Collection
 ---------------------------------------------
 {	
 	_id: "5kdfnkwer32",
-	influencerId: "5j34jfjoif38",
+	userId: "5j34jfjoif38",
 	profileSummary:
 	{	
 		fullName: 
@@ -95,7 +95,7 @@ SMC: Social Master Collection
 -----------------------------------------------
 {
 	_id: "5kwjfjdwjfjd",
-	influencerId: "5j34jfjoif38",
+	userId: "5j34jfjoif38",
 	credentials: 
 	[
 		{
