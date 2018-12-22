@@ -30,7 +30,7 @@ The main intent of this collection is to assist in fetching search suggestions.
 
 ### 2. ISDC: Influencer Search Details Collection/View
 
-	```
+```
 	{
 	fullName: 
 	{
@@ -51,7 +51,7 @@ The main intent of this collection is to assist in fetching search suggestions.
 	}
 	}
 
-	```
+```
 	
 	``` er ``` is the engagement rate.
 	
