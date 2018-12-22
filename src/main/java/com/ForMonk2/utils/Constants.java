@@ -9,7 +9,7 @@ public class Constants {
 	
 	public final static String DB_HOST = "ds143603.mlab.com";
 	public final static int DB_PORT = 43603;
-
+	public final static String MAIN_ENDPOINT = "https://influencemonk.com";
 	
 	public final static class DB_CREDENTIALS {
 		
