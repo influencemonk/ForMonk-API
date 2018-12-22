@@ -49,7 +49,7 @@ The main intent of this collection is to assist in fetching search suggestions.
 		avgComments: 12.1,
 		totalComments: 123
 	}
-}
+	}
 
 	```
 	
