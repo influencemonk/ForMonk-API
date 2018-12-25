@@ -49,7 +49,6 @@ public class InstaCrawlerHelper {
 			if(!crawlerResposne.isEmpty() && null != crawlerResposne && !crawlerResposne.equals("")) {
 				
 				JSONObject crawlerResponseObj = (JSONObject) parser.parse(crawlerResposne);
-				//System.out.println("Response: " + crawlerResponseObj.toJSONString());
 				
 				// Parse the received profile data:
 				profileInfoObj = crawlerParser.getProfileInfo(crawlerResponseObj);
@@ -267,8 +266,8 @@ public class InstaCrawlerHelper {
 				boolean postHasNextPage = false;
 				String postEndCursor = null;
 				
-				int counter = 0;
-				long mediaCount = (long) profileInfoObj.get("media_count");
+				/*int counter = 0;
+				long mediaCount = (long) profileInfoObj.get("media_count");*/
 				
 				JSONArray mainPostsArray = new JSONArray();
 				

@@ -14,6 +14,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class NetworkHandler {
 	
 	private NetworkHandler() {
@@ -43,7 +44,7 @@ public class NetworkHandler {
 		
 	}
 	
-	public String formatString(String baseUrl , Map<String , String> queries) 
+	public String formatString(String baseUrl , Map<String , Object> queries) 
 			throws MalformedURLException {
 		
 		
@@ -69,7 +70,7 @@ public class NetworkHandler {
 		return mainUrl.toString();
 	}
 	
-	public String formatString(Map<String,String> params) throws UnsupportedEncodingException {
+	public String formatString(Map<String,Object> params) throws UnsupportedEncodingException {
 		
 //		if(params == null ) {
 //			return "";
@@ -100,7 +101,9 @@ public class NetworkHandler {
 			
 			for(String key : params.keySet()) {
 				
-				queryString += key+"="+URLEncoder.encode(params.get(key), "UTF-8")+"&";
+				queryString += key+"="+
+				params.get(key) instanceof String ? URLEncoder.encode((String) params.get(key), "UTF-8") : params.get(key)
+				+"&";
 				
 			}
 			
@@ -117,7 +120,7 @@ public class NetworkHandler {
 //		
 	}
 	
-	public String sendGet(String baseUrl , Map<String , String> queries, Map<String, String> headers) throws IOException {
+	public String sendGet(String baseUrl , Map queries, Map<String, String> headers) throws IOException {
 		
 		URL mainUrl = new URL(formatString(baseUrl , queries));
 		
@@ -163,12 +166,12 @@ public class NetworkHandler {
 		
 	}
 	
-	public String sendGet(String baseUrl , Map<String , String> queries) throws IOException {
+	public String sendGet(String baseUrl , Map queries) throws IOException {
 		return sendGet(baseUrl, queries, null);
 	}
 	
 	
-	public String sendPOST(String baseUrl , Map<String,String> queries) throws IOException {
+	public String sendPOST(String baseUrl , Map queries) throws IOException {
 		URL obj = new URL(baseUrl);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");

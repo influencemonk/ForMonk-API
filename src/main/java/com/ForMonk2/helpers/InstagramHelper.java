@@ -21,7 +21,7 @@ public class InstagramHelper {
 		
 	public static String userLogin() {
 		
-		Map<String,String> queryMap = Constants.INSTAGRAM_CONSTANTS.getAuthTokenQuery();
+		Map<String,Object> queryMap = Constants.INSTAGRAM_CONSTANTS.getAuthTokenQuery();
 		GeneralUtils.printStackTrace(queryMap.toString());
 		
 		try {

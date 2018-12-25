@@ -37,7 +37,7 @@ public class Constants {
 		
 		public final static String GRANT_TYPE = "authorization_code";
 		
-		public static Map<String, String> getAuthTokenQuery() {
+		public static Map<String, Object> getAuthTokenQuery() {
 
 	        return Collections.unmodifiableMap(new HashMap<String, String>() {
 	         
@@ -137,6 +137,10 @@ public class Constants {
 			result = variablesBuilder.toString();
 			
 			return result;
+		}
+		
+		public static final String getUserProfileURL(String username) {
+			return "https://www.instagram.com/"+username+"/";
 		}
 	}
 	
