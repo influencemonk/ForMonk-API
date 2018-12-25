@@ -17,17 +17,17 @@ public class InstagramProfileController {
 		instagramDataHelper = new InstagramDataHelper();
 	}
 	
-	@RequestMapping(value="/profileSummary", method=RequestMethod.POST)
+	@RequestMapping(value="/profileSummary", method=RequestMethod.GET)
 	public @ResponseBody String getProfileSummary(String username, Integer maxPosts) {
 		return instagramDataHelper.getProfileSummary(username, maxPosts);
 	}
 	
-	@RequestMapping(value="/currentAnalytics", method=RequestMethod.POST)
+	@RequestMapping(value="/currentAnalytics", method=RequestMethod.GET)
 	public @ResponseBody String getCurrentAnalytics(String username) {
 		return instagramDataHelper.getFullProfileAnalytics(username);
 	}
 	
-	@RequestMapping(value="/predictedAnalytics", method=RequestMethod.POST)
+	@RequestMapping(value="/predictedAnalytics", method=RequestMethod.GET)
 	public @ResponseBody String getPredictedAnalytics(String username) {
 		return null;
 	}
