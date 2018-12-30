@@ -2,6 +2,10 @@ package com.ForMonk2.utils;
 
 import org.json.simple.JSONObject;
 
+import com.ForMonk2.utils.Constants.INSTA_SCRAPER.DataSource;
+
+import java.util.Collections;
+import java.util.TreeMap;
 
 import org.json.simple.JSONArray;
 
@@ -316,11 +320,16 @@ public class CrawlerDataParser {
 	/**
 	 * Method to parse profile summary from Instagram GraphQL API
 	 */
-	public JSONObject getPostSummaryInfo(JSONObject mainPostsObj, int maxPosts) {
+	public JSONObject getPostSummaryInfo(JSONObject mainPostsObj, int maxPosts, DataSource source) {
 		
 		JSONObject profileInfoObj = new JSONObject();
-		
-		JSONObject	userObj = getUserObjGraphQl(mainPostsObj);
+		JSONObject	userObj = null;
+		if(source == Constants.INSTA_SCRAPER.DataSource.graphql) {
+			userObj = getUserObjGraphQl(mainPostsObj);
+		}
+		else {
+			userObj = getUserObj(mainPostsObj);
+		}
 		
 		profileInfoObj.put("username", userObj.get("username"));
 		profileInfoObj.put("business_email", userObj.get("business_email"));
@@ -437,6 +446,8 @@ public class CrawlerDataParser {
 		long totalLikes = 0;
 		long totalComments = 0;
 		
+		TreeMap<Long, JSONObject> postsMap = new TreeMap<Long, JSONObject>(Collections.reverseOrder()); 
+		
 		for(int i = 0; i < edgesArray.size(); i++) {
 			JSONObject postObj = new JSONObject();
 			JSONObject edge = (JSONObject) edgesArray.get(i);
@@ -452,33 +463,48 @@ public class CrawlerDataParser {
 			//postObj.put("tracking_token", nodeObj.get("tracking_token"));
 			
 			JSONObject edgeMediaLikesObj = (JSONObject) nodeObj.get("edge_media_preview_like");
-			postObj.put("likes", edgeMediaLikesObj.get("count"));
-			totalLikes += (long) edgeMediaLikesObj.get("count");
+			long likes = (long) edgeMediaLikesObj.get("count");
+			postObj.put("likes", likes);
+			totalLikes += likes;
 			
 			JSONObject edgeMediaCommentsObj = (JSONObject) nodeObj.get("edge_media_to_comment");
-			postObj.put("comments", edgeMediaCommentsObj.get("count"));
-			totalComments += (long) edgeMediaCommentsObj.get("count");
+			long comments = (long) edgeMediaCommentsObj.get("count");
+			postObj.put("comments", comments);
+			totalComments += comments;
+			
+			// Add limited data for regular analytics
+			postsInfoArr.add(postObj);
 			
 			
-			/*JSONObject edgeMediaCaptionObj = (JSONObject) nodeObj.get("edge_media_to_caption");
+			// Add other post related data for top posts
+			postObj.put("display_url", nodeObj.get("display_url"));
+			postObj.put("is_video", nodeObj.get("is_video"));
+			
+			JSONObject edgeMediaCaptionObj = (JSONObject) nodeObj.get("edge_media_to_caption");
 			JSONArray captionEdgesArr = (JSONArray) edgeMediaCaptionObj.get("edges");
 			if(captionEdgesArr.size() > 0) {
 				JSONObject captionEdgeObj = (JSONObject) captionEdgesArr.get(0);
-				JSONObject captionNodeObj = (JSONObject) captionEdgeObj.get("node");
-				postObj.put("caption", captionNodeObj.get("text"));
+				
+				if(null != captionEdgeObj.get("node")) {
+					JSONObject captionNodeObj = (JSONObject) captionEdgeObj.get("node");
+					
+					if(null != captionNodeObj.get("text")) {
+						postObj.put("caption", captionNodeObj.get("text"));
+					}
+				}
 			}
 			else {
 				postObj.put("caption", null);
-			}*/
+			}
 			
-			postsInfoArr.add(postObj);
+			postsMap.put(likes + comments, postObj);
 			
 		}
 		
 		postsInfoPageObj.put("posts_data", postsInfoArr);
 		postsInfoPageObj.put("page_total_likes", totalLikes);
 		postsInfoPageObj.put("page_total_comments", totalComments);
-		
+		postsInfoPageObj.put("page_posts_map", postsMap);
 		
 		return postsInfoPageObj;
 	}

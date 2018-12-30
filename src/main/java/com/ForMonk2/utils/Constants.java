@@ -65,6 +65,14 @@ public class Constants {
 	
 	public final static class INSTA_SCRAPER {
 		
+		public enum ApiUser {
+			imWeb, diet
+		}
+		
+		public static enum DataSource {
+			graphql, im_parser
+		}
+		
 		public static int COOKIE_VAR_INDEX = 0;
 		
 		public static String[] cookieVarArr = {"7XCbIaBY6FhSfhg6k_2hPQSyIajpzqdQdidTc_mukXM", "UuP4LfQMkEsW3laqrut4T77wS8RcpShS2EMle2o0YT0",

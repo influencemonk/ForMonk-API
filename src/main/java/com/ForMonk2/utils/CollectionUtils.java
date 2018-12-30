@@ -3,7 +3,7 @@ package com.ForMonk2.utils;
 public class CollectionUtils {
 	
 	public static enum Collections {
-		MonkDB, RegistrationDB, ProfileInfoDB
+		MonkDB, RegistrationDB, ProfileInfoDB, DietDB
 	}
 	
 	public static enum Operations {
