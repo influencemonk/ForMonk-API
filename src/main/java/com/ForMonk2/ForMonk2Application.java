@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -25,6 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @EnableSwagger2
 @EnableWebMvc
+
 public class ForMonk2Application implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
@@ -53,9 +55,6 @@ public class ForMonk2Application implements WebMvcConfigurer {
 	    registry.addResourceHandler("/docApi/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 	
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-	    registry.addMapping("/**");
-	}
+
 	  
 }
