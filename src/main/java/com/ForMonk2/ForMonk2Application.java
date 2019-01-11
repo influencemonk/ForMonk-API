@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -26,21 +25,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @EnableSwagger2
 @EnableWebMvc
-public class ForMonk2Application extends WebMvcConfigurationSupport {
+public class ForMonk2Application implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ForMonk2Application.class, args);
 	}
 	
 	@Bean
-	public Docket CachingTutorialsApi() {
+	public Docket apiDocket() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select().apis(RequestHandlerSelectors.basePackage("com.ForMonk2.controllers"))
 				.paths(regex("/*.*"))
 				.build();
 	}
 	
-
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 	    registry.addRedirectViewController("/docApi/v2/api-docs", "/v2/api-docs");
@@ -56,8 +54,8 @@ public class ForMonk2Application extends WebMvcConfigurationSupport {
 	}
 	
 	@Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
-   } 
+	public void addCorsMappings(CorsRegistry registry) {
+	    registry.addMapping("/**");
+	}
 	  
 }

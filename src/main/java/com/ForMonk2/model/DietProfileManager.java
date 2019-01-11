@@ -1,8 +1,7 @@
-package com.ForMonk2.manager;
+package com.ForMonk2.model;
 
 import org.bson.Document;
 
-import com.ForMonk2.model.InfluencerMaster;
 import com.ForMonk2.utils.CollectionHandler;
 import com.ForMonk2.utils.CollectionUtils.Collections;
 import com.ForMonk2.utils.CollectionUtils.Operations;

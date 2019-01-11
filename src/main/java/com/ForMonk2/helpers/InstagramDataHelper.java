@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.ForMonk2.manager.DietProfileManager;
+import com.ForMonk2.model.DietProfileManager;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
 import com.ForMonk2.utils.CrawlerDataParser;
