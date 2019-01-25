@@ -66,7 +66,7 @@ public class Constants {
 	public final static class INSTA_SCRAPER {
 		
 		public enum ApiUser {
-			imWeb, diet
+			imWeb, diet, getics
 		}
 		
 		public static enum DataSource {

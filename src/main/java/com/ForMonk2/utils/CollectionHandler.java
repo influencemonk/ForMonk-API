@@ -4,7 +4,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import com.ForMonk2.model.UpdateModel;
-import com.ForMonk2.utils.CollectionUtils.Collections;
+import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.CollectionUtils.Operations;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
@@ -19,7 +19,7 @@ public class CollectionHandler extends DBHandler{
 	/*
 	 * Method to handle CRUD operations for a collection
 	 */
-	public static Object startOperation(Object data, Collections collection, Operations operation) {
+	public static Object startOperation(Object data, DBCollections collection, Operations operation) {
 		
 		Object response = false;
 		

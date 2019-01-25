@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.ForMonk2.utils.CollectionUtils.Collections;
+import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.CollectionUtils.Operations;
 import com.ForMonk2.model.AccessTokenResponseModel;
 import com.ForMonk2.utils.CollectionHandler;
@@ -64,7 +64,7 @@ public class InstagramHelper {
 			
 			AccessTokenResponseModel responseObject = new Gson().fromJson(response, AccessTokenResponseModel.class);
 			
-			CollectionHandler.startOperation(responseObject, Collections.MonkDB, Operations.create);
+			CollectionHandler.startOperation(responseObject, DBCollections.MonkDB, Operations.create);
 			
 			return response;
 			

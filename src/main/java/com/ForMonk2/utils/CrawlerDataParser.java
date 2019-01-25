@@ -377,33 +377,35 @@ public class CrawlerDataParser {
 			int loopLimit = maxPosts < mediaEdgesArr.size() ? maxPosts : mediaEdgesArr.size();
 			
 			System.out.println("Loop Limit: "+loopLimit);
+			if(loopLimit > 0) {
+				for(int i = 0; i < loopLimit; i++) {
+					JSONObject mediaEdgeObj = (JSONObject) mediaEdgesArr.get(i);
+					JSONObject postData = new JSONObject();
+					
+					JSONObject mediaNodeObj = (JSONObject) mediaEdgeObj.get("node");
+					
+					postData.put("taken_at_timestamp", mediaNodeObj.get("taken_at_timestamp"));
+	
+					JSONObject edgeLikesObj = (JSONObject) mediaNodeObj.get("edge_liked_by");
+					postData.put("liked_by", edgeLikesObj.get("count"));
+					totalLikes += (long) edgeLikesObj.get("count");
+					
+					JSONObject edgeCommentsObj = (JSONObject) mediaNodeObj.get("edge_media_to_comment");
+					postData.put("comments", edgeCommentsObj.get("count"));
+					totalComments += (long) edgeCommentsObj.get("count");
+					
+					postDataArr.add(postData);
+	
+				}
 			
-			for(int i = 0; i < loopLimit; i++) {
-				JSONObject mediaEdgeObj = (JSONObject) mediaEdgesArr.get(i);
-				JSONObject postData = new JSONObject();
+				profileInfoObj.put("post_data", postDataArr);
 				
-				JSONObject mediaNodeObj = (JSONObject) mediaEdgeObj.get("node");
+				avgLikes = totalLikes / loopLimit;
+				avgComments = totalComments / loopLimit;
 				
-				postData.put("taken_at_timestamp", mediaNodeObj.get("taken_at_timestamp"));
-
-				JSONObject edgeLikesObj = (JSONObject) mediaNodeObj.get("edge_liked_by");
-				postData.put("liked_by", edgeLikesObj.get("count"));
-				totalLikes += (long) edgeLikesObj.get("count");
+				engagementRate = ((avgLikes + avgComments) / followedBy) * 100;
 				
-				JSONObject edgeCommentsObj = (JSONObject) mediaNodeObj.get("edge_media_to_comment");
-				postData.put("comments", edgeCommentsObj.get("count"));
-				totalComments += (long) edgeCommentsObj.get("count");
-				
-				postDataArr.add(postData);
-
 			}
-			
-			profileInfoObj.put("post_data", postDataArr);
-			
-			avgLikes = totalLikes / loopLimit;
-			avgComments = totalComments / loopLimit;
-			
-			engagementRate = ((avgLikes + avgComments) / followedBy) * 100;
 			
 			
 		}
@@ -480,6 +482,8 @@ public class CrawlerDataParser {
 			postObj.put("display_url", nodeObj.get("display_url"));
 			postObj.put("is_video", nodeObj.get("is_video"));
 			
+			boolean isVideo = (boolean) nodeObj.get("is_video");
+			
 			JSONObject edgeMediaCaptionObj = (JSONObject) nodeObj.get("edge_media_to_caption");
 			JSONArray captionEdgesArr = (JSONArray) edgeMediaCaptionObj.get("edges");
 			if(captionEdgesArr.size() > 0) {
@@ -497,7 +501,9 @@ public class CrawlerDataParser {
 				postObj.put("caption", null);
 			}
 			
-			postsMap.put(likes + comments, postObj);
+			if(!isVideo) {
+				postsMap.put(likes + comments, postObj);
+			}
 			
 		}
 		
