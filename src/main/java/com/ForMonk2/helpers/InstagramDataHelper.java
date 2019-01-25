@@ -2,10 +2,10 @@ package com.ForMonk2.helpers;
 
 import java.io.IOException;
 import java.net.SocketException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Collections;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.ForMonk2.manager.DietProfileManager;
+import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
 import com.ForMonk2.utils.CrawlerDataParser;
@@ -93,10 +94,19 @@ public class InstagramDataHelper {
 			e.printStackTrace();
 		}
 
-		if(apiUser == ApiUser.diet && responseObj.get("result").equals("true")) {
+		if(responseObj.get("result").equals("true")) {
+		
 			DietProfileManager dietProfileManager = new DietProfileManager();
-			if(!dietProfileManager.isAlreadyAdded(username)) {
-				dietProfileManager.addToDB(username);
+			DBCollections collection = DBCollections.MonkDB;
+			if(apiUser == ApiUser.diet) {
+				collection = DBCollections.DietDB;
+			}
+			else if(apiUser == ApiUser.getics) {
+				collection = DBCollections.GeticsDB;
+			}
+			
+			if(!dietProfileManager.isAlreadyAdded(username, collection)) {
+				dietProfileManager.addToDB(username, collection);
 			}
 		}
 		
@@ -355,9 +365,7 @@ public class InstagramDataHelper {
 	/**
 	 * Method to get All Data for profile analytics of a given user from Instagram GraphQL API
 	 */
-	public String getFullProfileAnalytics(String username) {
-		
-		String response = "";
+	public JSONObject getFullProfileAnalytics(String username) {
 		
 		JSONObject responseObj = new JSONObject();
 		
@@ -395,7 +403,7 @@ public class InstagramDataHelper {
 
 					responseObj.put("type", "invalid_username");
 					responseObj.put("message", "Username not found!");
-					return responseObj.toJSONString();
+					return responseObj;
 				}
 				
 				if(!crawlerResposne.isEmpty() && null != crawlerResposne && !crawlerResposne.equals("")) {
@@ -528,9 +536,9 @@ public class InstagramDataHelper {
 			
 		responseObj.put("data", profileInfoObj);
 		
-		response = responseObj.toJSONString();
+		//response = responseObj.toJSONString();
 		
-		return response;
+		return responseObj;
 	}
 
 }

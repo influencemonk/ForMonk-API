@@ -1,5 +1,6 @@
 package com.ForMonk2.controllers;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,19 +29,14 @@ public class InstagramProfileController {
 		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.diet);
 	}
 	
-/*	@RequestMapping(value="/profileSummary", method=RequestMethod.GET)
-	public @ResponseBody String getProfileSummary(String username, Integer maxPosts) {
-		return instagramDataHelper.getProfileSummary(username, maxPosts);
+	@RequestMapping(value="/profileSummaryGE", method=RequestMethod.GET)
+	public @ResponseBody String getProfileSummaryGE(String username, Integer maxPosts) {
+		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.getics);
 	}
 	
-	@RequestMapping(value="/currentAnalytics", method=RequestMethod.GET)
-	public @ResponseBody String getCurrentAnalytics(String username) {
-		return instagramDataHelper.getFullProfileAnalytics(username);
-	}
-*/	
 	@RequestMapping(value="/currentAnalyticsGQL", method=RequestMethod.GET)
-	public @ResponseBody String getCurrentAnalyticsGQL(String username) {
-		return instagramDataHelper.getFullProfileAnalyticsGQL(username);
+	public @ResponseBody JSONObject getCurrentAnalyticsGQL(String username) {
+		return instagramDataHelper.getFullProfileAnalytics(username);
 	}
 		
 	@RequestMapping(value="/predictedAnalytics", method=RequestMethod.GET)
