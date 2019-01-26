@@ -20,7 +20,7 @@ import com.ForMonk2.utils.NetworkHandler;
 public class InstaCrawlerHelper {
 	
 	/**
-	 * Method to get every posta and comment data of a user
+	 * Method to get every post and comment data of a user
 	 */
 	public String getProfileData(String username) {
 		String response = "";
