@@ -62,12 +62,13 @@ The main intent of this collection is to display all the search results .
 ```
 {
 _id: "5j34jfjoif38",
-username: "_soumyadeb_"
+socialHandle: "_soumyadeb_",
+"clientId": "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA"
 }
 
 ```
 
-This collection will be used to map all the user's username with a id (userId) ;
+This collection will be used to map influencer's social address username with social network site and also get its id ;
 
 ### 4. IDC: Influencer Details Collection
 
