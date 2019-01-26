@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.DataSource;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.json.simple.JSONArray;
@@ -368,6 +369,8 @@ public class CrawlerDataParser {
 		
 		float engagementRate = -1;
 		
+		float profileRating  = -1;
+		
 		if(!isPrivateProfile) {
 			
 			JSONArray postDataArr = new JSONArray();
@@ -405,6 +408,8 @@ public class CrawlerDataParser {
 				
 				engagementRate = ((avgLikes + avgComments) / followedBy) * 100;
 				
+				profileRating = getProfileRating(followedBy, engagementRate);
+				
 			}
 			
 			
@@ -420,6 +425,7 @@ public class CrawlerDataParser {
 		
 		profileInfoObj.put("engagement_rate", engagementRate);
 		
+		profileInfoObj.put("profile_rating", profileRating);
 		
 		return profileInfoObj;
 		
@@ -513,6 +519,43 @@ public class CrawlerDataParser {
 		postsInfoPageObj.put("page_posts_map", postsMap);
 		
 		return postsInfoPageObj;
+	}
+	
+	
+	private float getProfileRating(long followedBy, float engagementRate) {
+		
+		Map<Integer, Float> avgEnagementMap = Constants.INSTA_SCRAPER.getAvgEngagements();
+		
+		Float avgEngagement = -1f;
+		for(Integer key: avgEnagementMap.keySet()) {
+			if(followedBy < key) {
+				avgEngagement = avgEnagementMap.get(key);
+				break;
+			}
+		}
+		
+		if(avgEngagement != -1f) {
+			
+			float deviation = ((engagementRate - avgEngagement)/avgEngagement) * 100;
+			
+			Map<Float, Float> ratingMap = Constants.INSTA_SCRAPER.getRatingMap();
+			
+			float rating = -1f;
+			
+			for(Float key: ratingMap.keySet()) {
+				if(deviation < key) {
+					rating = ratingMap.get(key);
+					break;
+				}
+			}
+			
+			return rating;
+			
+		}
+		else {
+			return -1f;
+		}
+		
 	}
 
 	
