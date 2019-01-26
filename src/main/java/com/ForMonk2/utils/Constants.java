@@ -4,6 +4,7 @@ package com.ForMonk2.utils;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Constants {
 	
@@ -81,14 +82,6 @@ public class Constants {
 												"OdcI6KU6PUHVba3N1sJnrDzYNunVN5EUGhipuARC0L4", "Jfj6Rknjd14ivPgoxD1A1yLqheY6ZQipyvv4_Uw9QZU",
 												"2WEYXho5eoRPgVG-INnn9YSVvPpswCPWfiYu-GEPeao", "X8m6VGRva6pY9H__ZhmbpzZG29RNiqovcTY4l-VLX3E"};
 		
-		/*public static String[] cookie = {
-				"mcd=3; mid=W56NywALAAGbK-Cwoc07F1_xzcqT; fbm_124024574287414=base_domain=.instagram.com; csrftoken=2zouD42UCgJClNPyxLUhiUJ79HPEL9OF; ds_user_id=3560802821; csrftoken=2zouD42UCgJClNPyxLUhiUJ79HPEL9OF; shbid=7908; sessionid=3560802821%3AWok0LiYpRtdyAT%3A17; rur=FRC; shbts=1544703595.9432437; fbsr_124024574287414=biGmkGKZVB7cB9ZSMPAfK8aDfYvjwQPOxmAV3GmISs8.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUUE2VnJ5R3FUV0cxRy1TNFg0RXdKZ1dTUzNyVWdkSHZ5THBBOUYyR2JOZUN1cVhGcEMwQTBvZDZaNVV2aDFVczJwX1RNSXp0QXROQ2ZBMk9oWURnV1NSZDJEZ1dyMGllS052Wjh2T1M1bEN0S3VyX3BGTlVxMllQc2hURmVLOTNjSE5pOTFmc2RrSkdqZy1Lb1BPb2prOVNDS0tYY3d0R01jUlY3YzVTLWI5SERZSEpEbzZ0M2l6eG1KQTBEUEttVFBtN2NoUXk4N0FtbGxrSnBDQVhtcEh6aDZELUQ1TzBrQzlNNk12aGJVX3Bjdnc0d29xTldaa1lGemZvb3FZNUtJSkZmdjQ0WndrN0N5WEZwLVZDM2NJQlRnRWNTeVBVbHZBQ0hvaGdFOFVOek5DTXlzZjUySm8yNEN5cFNWUDJNYmZvUGxRVUhLc1Z3enRpdG8waXlhUiIsImlzc3VlZF9hdCI6MTU0NDcwMzU5OSwidXNlcl9pZCI6IjEwMDAwMTAyMDcxODk0MCJ9; urlgen=\"{\"2405:204:f20b:196b:3463:4ffa:966:5a1\": 55836\\054 \"59.145.203.72\": 9498}:1gXPyO:xiCQv19wU138Wy_Ur83rJjJULHg\"",
-				"mid=W61Q4AALAAH-gtfuZdVEeUcideRm; fbm_124024574287414=\"base_domain=.instagram.com\"; mcd=3; datr=QEe0W2-BMfy4WF0vVAr_S8wI; csrftoken=QykURg6Fly2Q8NUcgssGX5dgwXqTBdJT; shbid=16558; shbts=1544705680.260902; ds_user_id=1773770312; sessionid=1773770312%3AYPYskHu9jCdrvm%3A15; rur=ATN; urlgen=\"{\"103.216.93.158\": 45232}:1gXQVz:7rSCjqrnGbMVRCHEEErYKpS2Xz4\"",
-				"rur=FTW; mid=XBJN2AALAAF0k7XNmBfa5hcd4Ird; mcd=3; csrftoken=CQ2ZhKjogb5DSJITLPFTnnrGsDLGlr3k; shbid=2599; shbts=1544703468.2990055; ds_user_id=8889685533; sessionid=8889685533%3AvVKn8xvkFuiJRC%3A5; urlgen=\"{\"59.145.203.72\": 9498}:1gXPwK:mUXMnkcRdVSQZgVMuyDNCIBl0-8\"",
-				"csrftoken=SnjbpTUU9ULPBn6N2dqV0lFnHD5fKWjm; ds_user_id=3125975859; mcd=3; mid=W6VBbAALAAHBd9fB6VSGCkwhgOJk; csrftoken=SnjbpTUU9ULPBn6N2dqV0lFnHD5fKWjm; fbm_124024574287414=base_domain=.instagram.com; shbid=6834; shbts=1544710206.3444617; sessionid=3125975859%3ATPO05t80EBy6OD%3A12; rur=PRN; fbsr_124024574287414=gYGG3i2KVzDiG5GwM94zOIlRT1EKGk4OfpmFbx6BzAU.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUUIycWxhTXhkR0E0OUpFaEVJeExuNi02c1doaGR6d2xuMWVxaThYUEhSS1ZYdDJjZ3FrTlVKWVJKWnpkaGNIelVpbDh1bm43ZHplLWt3X3IzTjVJWVhLZFRrVmh5M3pHamtkRnhZcDR2WlRkU0ZSWjBiN2otdTJrbnYzdVY3UE15QXhta2V3eXdpc3h6LXNmM0I4VElYbHlaZGhEbGg1eGxnTjU5aDlsQWdQenZuX3gzbHpCVmtTZTdjMklfU0lldWJReFEtbXlOVnZDY3h0MWVaYU5SZkhxaVQ5RF9yamdSbWhnOW5mUEhLYmVzRXdja2RYbFV0T2NFU1UtbGY5TEdNWkhZT3JFaTV1dnFaaGRsMlROQlUtSDhHeTRab3dkRGpSNHZvX292QU1Jbjg5WC11RUFGSjlqNHdkYzZsNm9YdHd3eU1WX3RTLWUzeTZfeFc0NVFhXyIsImlzc3VlZF9hdCI6MTU0NDcxMDIyMCwidXNlcl9pZCI6IjEwMDAwMjEwMTg1MTQ2MSJ9; urlgen=\"{\"157.41.60.49\": 55836}:1gXRhD:eA_peS9EivhooTTeO3LwqgnjTPE\"",
-				"mcd=3; mid=W7JP2AALAAFakzq_RMgV98DRcvvc; fbm_124024574287414=base_domain=.instagram.com; shbid=7908; shbts=1544711553.7254987; sessionid=3306731883%3AFndrWmEel3aNlU%3A24; csrftoken=uKcW35BwhZd42ECvzdZj47wWThVgah7A; rur=FRC; ds_user_id=3306731883; fbsr_124024574287414=hdmeXWbP-4rlYQf7sEyNTxCfI5gxUE8qEsAXsWdxZqM.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUUFQNzd0ZndJVDdUWDIycEZFVHkxdTBUMTQ4TjE5REY2ZUYxRFZ3Rk5XTE9oeU8zR3lXX25lcEZsWGdHWHJQM0hTVGthckNGYl94RGp0eklqTjB6cUsyLUVDdWRncnJ0b0NIMmpnS25abTBoYUttNjlSVlQ1cHhnRGJoeXlyWHJqV3hKRGE1NE1udDYtMWw4dmkwWDd0bTFBNkJIaWNkOEJTRW16OG5rdV9xSDFrTEhUMHJOMHNiWGNEajFkQmxrTVQ0d3M5UXdhMmxXczJBS1kyTkhVUjJBUkJ2bnJoMzZWTFZYZFFOeW9zWHMzQVBkSVVoaUZBTzdLRjc3blZSWWxxSEtHTHE1aDU4cUtEZmR3Nkp2VkRseENCd3FZOXVaX19CbzhTdjJWd1FJQ0F1RmUxOVo5UkgxaDN6NkNrZFZ2anR0TDlNejhzcnZiVXZlYi1ZVzZCSyIsImlzc3VlZF9hdCI6MTU0NDcxMTU1NywidXNlcl9pZCI6IjEwMDAwMTk4OTAzMjY1NiJ9; urlgen=\"{\"157.41.60.49\": 55836}:1gXS2q:n0QMYCxcfYN9Kn-6HmgXpisGqtA\""
-				};*/
-		
 		public static String[] cookie = {
 			"mid=XBkOEAALAAFL-jDQiryAv8m_5Gma; mcd=3; csrftoken=hQN3Bzpf4BTFckhB82qK16MFpjNzD1rL; ds_user_id=9869424602; sessionid=9869424602%3AvyEK6gxpKdm0S7%3A10; rur=ATN; urlgen=\"{\"139.59.17.129\": 14061}:1gZH7Z:Z0T5DGNOc8Jj_kHthiJBrEZsp-s\"",	
 			"rur=FTW; mid=XBkPvgALAAFApfayylO7VnudORov; mcd=3; csrftoken=gStWihVsjKbQRJdUbsgRik3Z3wrHsHhf; ds_user_id=9743360601; sessionid=9743360601%3AJO2UBMWDVVKXaN%3A9; urlgen=\"{\"139.59.17.129\": 14061}:1gZHBL:W0shYTHMfiYdspzRqMI72EFA6Ig\",",
@@ -150,6 +143,45 @@ public class Constants {
 		public static final String getUserProfileURL(String username) {
 			return "https://www.instagram.com/"+username+"/";
 		}
+		
+		public static Map<Integer, Float> getAvgEngagements(){
+			
+			Map<Integer, Float> avgEngagements = new TreeMap<Integer, Float>();
+			
+			avgEngagements.put(1999, 10.7f);
+			avgEngagements.put(4999, 6.0f);
+			avgEngagements.put(9999, 4.9f);
+			avgEngagements.put(24999, 3.6f);
+			avgEngagements.put(49999, 3.1f);
+			avgEngagements.put(74999, 2.6f);
+			avgEngagements.put(99999, 2.5f);
+			avgEngagements.put(149999, 2.5f);
+			avgEngagements.put(249999, 2.4f);
+			avgEngagements.put(499999, 2.4f);
+			avgEngagements.put(999999, 1.3f);
+			avgEngagements.put(9999999, 1.5f);
+			
+			return avgEngagements;
+			
+		}
+		
+		public static Map<Float, Float> getRatingMap(){
+			
+			Map<Float, Float> ratingMap = new TreeMap<Float, Float>();
+			
+			ratingMap.put(-49.0f, 1.0f);
+			ratingMap.put(-14.0f, 2.0f);
+			ratingMap.put(14.0f, 3.0f);
+			ratingMap.put(39.0f, 3.5f);
+			ratingMap.put(69.0f, 4.0f);
+			ratingMap.put(99.0f, 4.5f);
+			ratingMap.put(249.0f, 5.0f);
+			ratingMap.put(999.0f, 6.0f);
+			
+			return ratingMap;
+			
+		}
+		
 	}
 	
 	
