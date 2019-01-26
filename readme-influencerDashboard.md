@@ -152,12 +152,13 @@ The intent of this collection is to store all the required oauth credentials (th
 ```
 {
 _id: "567djhfdf3",
-IMCId : "",
+IMCId : "BSON id from IMC",
 data: 
 [
 	{
 		timestamp: 15387237342,
-		followers: 1234
+		followers: 1234,
+		mediaCount
 	}
 ]
 }
