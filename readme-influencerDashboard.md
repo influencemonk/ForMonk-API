@@ -158,8 +158,8 @@ data:
 	{
 		timestamp: 15387237342,
 		followers: 1234,
-		mediaCount : 0,
-		clientId : ""
+		mediaCount : 0
+	
 	}
 ]
 }
