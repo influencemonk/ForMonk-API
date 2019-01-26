@@ -1,4 +1,4 @@
-package com.ForMonk2.manager;
+package com.ForMonk2.managers;
 
 import org.bson.Document;
 

@@ -14,6 +14,8 @@ import com.mongodb.client.MongoCollection;
 
 public class CollectionHandler extends DBHandler{
 	
+	private CollectionHandler() {} // this class is always supposed to be a singleton
+	
 	private static CollectionHandler collectionHandler = null;
 	
 	/*
@@ -84,7 +86,7 @@ public class CollectionHandler extends DBHandler{
 		
 		for(String key: updateModel.getUpdateMap().keySet()) {
 			updatedData.append(key, updateModel.getUpdateMap().get(key));
-		}
+		}	
 		
 		BasicDBObject updatedDocument = new BasicDBObject();
 		updatedDocument.append("$set", updatedData);
@@ -111,6 +113,28 @@ public class CollectionHandler extends DBHandler{
 		Bson bson =  BasicDBObject.parse(queryString);
 		return mongoCollection.find(bson);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T GetSingleData(Object mainObjectIterator) {
+		
+		if(! (mainObjectIterator instanceof FindIterable)) {
+			throw new RuntimeException("Please provide a iterable");
+		}
+		
+		FindIterable<Document> mainObject = (FindIterable<Document>)mainObjectIterator;
+		
+		if(mainObject != null && mainObject.iterator().hasNext()) {
+			return (T)(new Gson().fromJson(mainObject.first().toJson() , Object.class));
+		}else if(!mainObject.iterator().hasNext()) {
+			return null; 
+		}
+		else {
+			throw new RuntimeException("Can't convert null BSON ");
+		}
+		
+	}
+	
+	
 	
 
 }

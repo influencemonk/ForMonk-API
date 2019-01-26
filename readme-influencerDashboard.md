@@ -62,12 +62,13 @@ The main intent of this collection is to display all the search results .
 ```
 {
 _id: "5j34jfjoif38",
-username: "_soumyadeb_"
+socialHandle: "_soumyadeb_",
+"clientId": "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA"
 }
 
 ```
 
-This collection will be used to map all the user's username with a id (userId) ;
+This collection will be used to map influencer's social address username with social network site and also get its id ;
 
 ### 4. IDC: Influencer Details Collection
 
@@ -151,11 +152,14 @@ The intent of this collection is to store all the required oauth credentials (th
 ```
 {
 _id: "567djhfdf3",
+IMCId : "BSON id from IMC",
 data: 
 [
 	{
 		timestamp: 15387237342,
-		followers: 1234
+		followers: 1234,
+		mediaCount : 0
+	
 	}
 ]
 }

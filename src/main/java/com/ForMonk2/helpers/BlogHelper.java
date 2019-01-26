@@ -64,8 +64,8 @@ public class BlogHelper {
 			message.setContent(multipart);
 			
 			String emailHost = "smtp.gmail.com";
-			String fromUser = "majumdartanmay68";
-			String fromUserEmailPassword = "Vugo&$7745";
+			String fromUser = "influencemonk";
+			String fromUserEmailPassword = "InfluenceMonk@0210";
 			
 			Transport transport = session.getTransport("smtp");
 			
