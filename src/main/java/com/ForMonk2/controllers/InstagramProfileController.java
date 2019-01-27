@@ -77,7 +77,7 @@ public class InstagramProfileController {
 				return new ResponseEntity<>(Constants.ResponseMessages.INVALID_CLIENT_ID, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 			
-			return new ResponseEntity<>(instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.imWeb), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.imWeb), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
