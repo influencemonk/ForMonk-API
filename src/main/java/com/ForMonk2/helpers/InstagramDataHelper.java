@@ -72,6 +72,7 @@ public class InstagramDataHelper {
 				JSONObject profileData = crawlerParser.getPostSummaryInfo(crawlerResponseObj, maxPosts,
 											Constants.INSTA_SCRAPER.DataSource.graphql);
 				
+				// Get IMC ID from DB:
 				if(apiUser == ApiUser.imWeb) {
 					
 					IMCDataHelper imcDataHelper = new IMCDataHelper();

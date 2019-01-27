@@ -17,6 +17,14 @@ import com.mongodb.client.AggregateIterable;
 
 public class IMCDataHelper {
 	
+	
+	/**
+	 * 
+	 * Method that returns imcId of a socialHandle from DB
+	 * @param clientId
+	 * @param socialHandle
+	 * @return imcId
+	 */
 	@SuppressWarnings("unchecked")
 	public String getIMCObjectId(String clientId, String socialHandle) {
 		
@@ -43,6 +51,13 @@ public class IMCDataHelper {
 		return imcId.toString();
 	}
 	
+	
+	/**
+	 * Method to save a socialHandle in DB
+	 * @param clientId
+	 * @param socialHandle
+	 * @return imcId
+	 */
 	private ObjectId addSocialHandle(String clientId, String socialHandle) {
 		
 		IMCSocialAccount imcSocialAccount = new IMCSocialAccount();
