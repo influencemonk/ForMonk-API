@@ -1,8 +1,10 @@
 
 package com.ForMonk2.utils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -185,7 +187,16 @@ public class Constants {
 	}
 	
 	public static class SOCIAL_CLIENTS {
+		
 		public static String INSTAGRAM = "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA";
+		public static final List<String> clientIds = Collections.unmodifiableList(
+			    new ArrayList<String>() {{
+			        add(INSTAGRAM);
+			    }});
+	}
+	
+	public static final class ResponseMessages{
+		public static final String INVALID_CLIENT_ID = "Invalid client id";
 	}
 
 }

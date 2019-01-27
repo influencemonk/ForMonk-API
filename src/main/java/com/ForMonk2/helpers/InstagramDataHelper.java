@@ -2,16 +2,17 @@ package com.ForMonk2.helpers;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Collections;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
@@ -531,6 +532,22 @@ public class InstagramDataHelper {
 		// response = responseObj.toJSONString();
 
 		return responseObj;
+	}
+	
+	public static FollowerTrendMasterModel getProfileTrend(String clientId , String imcId) {
+		try {
+			
+			FollowerTrendMasterModel followerTrendMasterModel = new FollowerTrendMasterModel();
+			
+			followerTrendMasterModel.setIMCId(imcId);
+			
+			followerTrendMasterModel = followerTrendMasterModel.getDBObject();
+			
+			return followerTrendMasterModel;
+			
+		}catch(Exception e ) {
+			return null;
+		}
 	}
 
 }
