@@ -184,7 +184,9 @@ public class Constants {
 		
 	}
 	
-	
+	public static class SOCIAL_CLIENTS {
+		public static String INSTAGRAM = "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA";
+	}
 
 }
 

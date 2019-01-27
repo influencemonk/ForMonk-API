@@ -1,4 +1,4 @@
-package com.ForMonk2.managers;
+package com.ForMonk2.helpers;
 
 import org.bson.Document;
 
@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
 @SuppressWarnings("unchecked")
-public class DietProfileManager {
+public class DietProfileHelper {
 	
 	private Gson gson = null;
 	

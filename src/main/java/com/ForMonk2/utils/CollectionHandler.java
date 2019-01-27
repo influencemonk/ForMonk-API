@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import com.ForMonk2.model.NestedArrayFilterModel;
 import com.ForMonk2.model.UpdateModel;
@@ -15,7 +16,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 
@@ -46,8 +46,7 @@ public class CollectionHandler extends DBHandler {
 			switch (operation) {
 
 			case create:
-				create(data, mongoCollection);
-				response = true;
+				response = create(data, mongoCollection);
 				break;
 
 			case update:
@@ -83,11 +82,17 @@ public class CollectionHandler extends DBHandler {
 	/*
 	 * Method to add a document in a collection
 	 */
-	private static void create(Object data, MongoCollection<Document> mongoCollection) {
+	private static ObjectId create(Object data, MongoCollection<Document> mongoCollection) {
 		Gson gson = new Gson();
 		String jsonData = gson.toJson(data);
 		Document document = Document.parse(jsonData);
 		mongoCollection.insertOne(document);
+		if (document.get("_id") == null) {
+			return null;
+		} else {
+			ObjectId id = (ObjectId) document.get("_id");
+			return id;
+		}
 	}
 
 	/*
@@ -152,28 +157,31 @@ public class CollectionHandler extends DBHandler {
 			MongoCollection<Document> mongoCollection) {
 
 		ArrayList<Bson> matchList = new ArrayList<Bson>();
-
-		for (String key : model.getMatchValues().keySet()) {
-			try {
-				matchList.add(Aggregates.match(Filters.eq(key, model.getMatchValues().get(key))));
-			} catch (Exception e) {
+		
+		if( model.getMatchValues() != null) {
+			for (String key : model.getMatchValues().keySet()) {
+				try {
+					matchList.add(Aggregates.match(Filters.eq(key, model.getMatchValues().get(key))));
+				} catch (Exception e) {
+					
+				}
 			}
 		}
 
 		matchList.add(Aggregates.unwind("$" + model.getListName()));
-
-		for (String key : model.getProjectValues().keySet()) {
-			try {
-				matchList.add(Aggregates
-						.match(Filters.eq(model.getListName() + "." + key, model.getProjectValues().get(key))));
-			} catch (Exception e) {
-
+		
+		if(model.getProjectValues() != null) {
+			for (String key : model.getProjectValues().keySet()) {
+				try {
+					matchList.add(Aggregates
+							.match(Filters.eq(model.getListName() + "." + key, model.getProjectValues().get(key))));
+				} catch (Exception e) {
+	
+				}
 			}
 		}
 
 		AggregateIterable<Document> output = mongoCollection.aggregate(matchList);
-		
-		
 
 		return output;
 

@@ -13,7 +13,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.ForMonk2.utils.CollectionUtils.DBCollections;
-import com.ForMonk2.managers.DietProfileManager;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
 import com.ForMonk2.utils.CrawlerDataParser;
@@ -31,7 +30,7 @@ public class InstagramDataHelper {
 	 * @param       maxPosts: Maximum number of posts to process
 	 * @return User Instgaram profile summary
 	 */
-	public String getProfileSummaryGQL(String username, Integer maxPosts, ApiUser apiUser) {
+	public JSONObject getProfileSummaryGQL(String username, Integer maxPosts, ApiUser apiUser) {
 
 		JSONObject responseObj = new JSONObject();
 
@@ -63,16 +62,27 @@ public class InstagramDataHelper {
 				e.printStackTrace();
 				responseObj.put("type", "invalid_username");
 				responseObj.put("message", "Username not found!");
-				return responseObj.toJSONString();
+				return responseObj;
 			}
 
 			if (!crawlerResposne.isEmpty() && null != crawlerResposne && !crawlerResposne.equals("")) {
 
 				JSONObject crawlerResponseObj = (JSONObject) parser.parse(crawlerResposne);
-
+				
+				JSONObject profileData = crawlerParser.getPostSummaryInfo(crawlerResponseObj, maxPosts,
+											Constants.INSTA_SCRAPER.DataSource.graphql);
+				
+				if(apiUser == ApiUser.imWeb) {
+					
+					IMCDataHelper imcDataHelper = new IMCDataHelper();
+					String imcId = imcDataHelper.getIMCObjectId(Constants.SOCIAL_CLIENTS.INSTAGRAM, username);
+					
+					profileData.put("imc_id", imcId);
+					
+				}
+				
 				// Parse the received profile data:
-				responseObj.put("data", crawlerParser.getPostSummaryInfo(crawlerResponseObj, maxPosts,
-						Constants.INSTA_SCRAPER.DataSource.graphql));
+				responseObj.put("data", profileData);
 				responseObj.put("result", "true");
 			} else {
 				responseObj.put("result", "false");
@@ -93,22 +103,25 @@ public class InstagramDataHelper {
 		}
 
 		if (responseObj.get("result").equals("true")) {
-
-			DietProfileManager dietProfileManager = new DietProfileManager();
-			DBCollections collection = DBCollections.MonkDB;
-			if (apiUser == ApiUser.diet) {
-				collection = DBCollections.DietDB;
-			} else if (apiUser == ApiUser.getics) {
-				collection = DBCollections.GeticsDB;
+			
+			if(apiUser != ApiUser.imWeb) {
+				DietProfileHelper dietProfileManager = new DietProfileHelper();
+				DBCollections collection = DBCollections.MonkDB;
+				if (apiUser == ApiUser.diet) {
+					collection = DBCollections.DietDB;
+				} else if (apiUser == ApiUser.getics) {
+					collection = DBCollections.GeticsDB;
+				}
+	
+				if (!dietProfileManager.isAlreadyAdded(username, collection)) {
+					dietProfileManager.addToDB(username, collection);
+				}
 			}
 
-			if (!dietProfileManager.isAlreadyAdded(username, collection)) {
-				dietProfileManager.addToDB(username, collection);
-			}
 		}
 
 		System.out.println("response: " + responseObj.toJSONString());
-		return responseObj.toJSONString();
+		return responseObj;
 
 	}
 

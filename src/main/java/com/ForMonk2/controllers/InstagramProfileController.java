@@ -20,17 +20,17 @@ public class InstagramProfileController {
 	}
 	
 	@RequestMapping(value="/profileSummaryGQL", method=RequestMethod.GET)
-	public @ResponseBody String getProfileSummaryGQL(String username, Integer maxPosts) {
+	public @ResponseBody JSONObject getProfileSummaryGQL(String username, Integer maxPosts) {
 		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.imWeb);
 	}
 	
 	@RequestMapping(value="/profileSummaryDI", method=RequestMethod.GET)
-	public @ResponseBody String getProfileSummaryDI(String username, Integer maxPosts) {
+	public @ResponseBody JSONObject getProfileSummaryDI(String username, Integer maxPosts) {
 		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.diet);
 	}
 	
 	@RequestMapping(value="/profileSummaryGE", method=RequestMethod.GET)
-	public @ResponseBody String getProfileSummaryGE(String username, Integer maxPosts) {
+	public @ResponseBody JSONObject getProfileSummaryGE(String username, Integer maxPosts) {
 		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.getics);
 	}
 	

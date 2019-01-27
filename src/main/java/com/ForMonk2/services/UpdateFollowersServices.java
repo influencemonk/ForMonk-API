@@ -22,11 +22,11 @@ import com.ForMonk2.utils.DateHandler;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
-@Component
+//@Component
 public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 5000000)
 
 	public void getDataFromIMC() {
 
@@ -58,7 +58,7 @@ public class UpdateFollowersServices {
 
 		InstagramDataHelper instagramDataHelper = new InstagramDataHelper();
 
-		String userData = instagramDataHelper.getProfileSummaryGQL(userName, 1, ApiUser.imWeb);
+		String userData = instagramDataHelper.getProfileSummaryGQL(userName, 1, ApiUser.imWeb).toJSONString();
 
 		ProfileSummaryGQLResponse profileSummaryGQL = new Gson().fromJson(userData, ProfileSummaryGQLResponse.class);
 
