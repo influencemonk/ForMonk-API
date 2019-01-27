@@ -43,7 +43,7 @@ public class IMCDataHelper {
 		return imcId.toString();
 	}
 	
-	public ObjectId addSocialHandle(String clientId, String socialHandle) {
+	private ObjectId addSocialHandle(String clientId, String socialHandle) {
 		
 		IMCSocialAccount imcSocialAccount = new IMCSocialAccount();
 		imcSocialAccount.setClientId(clientId);

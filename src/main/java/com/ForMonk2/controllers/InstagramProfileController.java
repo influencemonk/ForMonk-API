@@ -43,5 +43,10 @@ public class InstagramProfileController {
 	public @ResponseBody String getPredictedAnalytics(String username) {
 		return null;
 	}
+	
+	@RequestMapping(value="/profileTrend", method=RequestMethod.GET)
+	public @ResponseBody String getProfileTrend(String clientId, String imcId) {
+		return null;
+	}
 
 }
