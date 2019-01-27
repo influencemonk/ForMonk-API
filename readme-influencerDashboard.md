@@ -62,8 +62,10 @@ The main intent of this collection is to display all the search results .
 ```
 {
 _id: "5j34jfjoif38",
+"socialAccounts" : [
 socialHandle: "_soumyadeb_",
 "clientId": "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA"
+]
 }
 
 ```
