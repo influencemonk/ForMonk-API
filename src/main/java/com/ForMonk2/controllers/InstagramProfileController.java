@@ -27,7 +27,7 @@ public class InstagramProfileController {
 
 	@RequestMapping(value = "/profileSummaryGQL", method = RequestMethod.GET)
 	public @ResponseBody JSONObject getProfileSummaryGQL(String username, Integer maxPosts) {
-		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.imWeb);
+		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.gSheet);
 	}
 
 	@RequestMapping(value = "/profileSummaryDI", method = RequestMethod.GET)
@@ -63,6 +63,21 @@ public class InstagramProfileController {
 
 			}
 
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value = "/profileSummary", method = RequestMethod.GET)
+	public ResponseEntity<?> getProfileSummary(@RequestHeader(value = "ClientID") String clientId, String username, 
+												Integer maxPosts) {	
+		try {
+
+			if(! Constants.SOCIAL_CLIENTS.clientIds.contains(clientId)) {
+				return new ResponseEntity<>(Constants.ResponseMessages.INVALID_CLIENT_ID, HttpStatus.UNPROCESSABLE_ENTITY);
+			}
+			
+			return new ResponseEntity<>(instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.imWeb), HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

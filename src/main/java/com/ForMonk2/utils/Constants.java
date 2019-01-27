@@ -69,7 +69,7 @@ public class Constants {
 	public final static class INSTA_SCRAPER {
 		
 		public enum ApiUser {
-			imWeb, diet, getics
+			imWeb, diet, getics, gSheet
 		}
 		
 		public static enum DataSource {
@@ -190,7 +190,8 @@ public class Constants {
 		
 		public static String INSTAGRAM = "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA";
 		public static final List<String> clientIds = Collections.unmodifiableList(
-			    new ArrayList<String>() {{
+			    new ArrayList<String>() {
+				{
 			        add(INSTAGRAM);
 			    }});
 	}
