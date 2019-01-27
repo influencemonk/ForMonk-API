@@ -27,6 +27,7 @@ public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")
 	@Scheduled(fixedRate = 5000)
+
 	public void getDataFromIMC() {
 
 		FindIterable<Document> allUsersData = null;
@@ -96,10 +97,10 @@ public class UpdateFollowersServices {
 			HashMap<String, Object> updateMap = new HashMap<String, Object>();
 
 			updateMap.put("data", dataList);
-			
+
 			FollowerTrendMasterModel updateSet = new FollowerTrendMasterModel();
 			updateSet.setIMCId(IMCId);
-			
+
 			UpdateModel updateModel = new UpdateModel(new Gson().toJson(updateSet), updateMap);
 
 			followerTrendMaster.updateData(updateModel);
@@ -122,6 +123,5 @@ public class UpdateFollowersServices {
 	private void printData(Object object) {
 		System.out.println(new Gson().toJson(object));
 	}
-
 
 }

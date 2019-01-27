@@ -86,12 +86,12 @@ public class FollowerTrendMasterModel {
 	}
 
 	public void addToCollection() {
-		CollectionHandler.startOperation(this, CollectionUtils.DBCollections.FollowerTrendMaster,
+		CollectionHandler.startOperation(this, CollectionUtils.DBCollections.InstagramFollowerTrend,
 				CollectionUtils.Operations.create);
 	}
 
 	private Object getObjectIterable() {
-		return CollectionHandler.startOperation(new Gson().toJson(this), DBCollections.FollowerTrendMaster,
+		return CollectionHandler.startOperation(new Gson().toJson(this), DBCollections.InstagramFollowerTrend,
 				Operations.read);
 	}
 
@@ -108,8 +108,10 @@ public class FollowerTrendMasterModel {
 
 	public void updateData(UpdateModel updateData) {
 
-		CollectionHandler.startOperation(updateData, CollectionUtils.DBCollections.FollowerTrendMaster,
+		CollectionHandler.startOperation(updateData, CollectionUtils.DBCollections.InstagramFollowerTrend,
 				CollectionUtils.Operations.update);
 	}
+	
+	
 
 }
