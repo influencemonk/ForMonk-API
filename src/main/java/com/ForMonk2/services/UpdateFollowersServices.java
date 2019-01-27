@@ -3,8 +3,11 @@ package com.ForMonk2.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bson.Document;
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,6 @@ import com.ForMonk2.model.FollowerTrendMasterModel.FTMData;
 import com.ForMonk2.model.ProfileSummaryGQLResponse;
 import com.ForMonk2.model.UpdateModel;
 import com.ForMonk2.utils.CollectionHandler;
-import com.ForMonk2.utils.CollectionKeys;
 import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.CollectionUtils.Operations;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
@@ -26,10 +28,10 @@ import com.mongodb.client.FindIterable;
 public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")
-	@Scheduled(fixedRate = 5000000)
+	@Scheduled(fixedRate = 5000)
 
 	public void getDataFromIMC() {
-
+		
 		FindIterable<Document> allUsersData = null;
 
 		Object allUsersIterable = CollectionHandler.startOperation("{}", DBCollections.InfluencerMasterCollection,
@@ -41,10 +43,16 @@ public class UpdateFollowersServices {
 
 			if (allUsersData != null) {
 
-				if (allUsersData.iterator().hasNext()) {
-					Document doc = allUsersData.first();
-					startGettingFollowers(doc.getString(CollectionKeys.InfluencerMasterCollection.socialHandle),
-							doc.getObjectId("_id").toString());
+				for(Document doc : allUsersData) {
+					
+					Object doc1 = doc.get("socialAccounts");
+					
+					List<Document> socialAccounts = (List<Document>)doc.get("socialAccounts");
+					
+					for(Document socialAccount : socialAccounts) {
+						startGettingFollowers(socialAccount.getString("socialHandle") , doc.getObjectId("_id").toString());
+					}
+					
 				}
 
 			}
@@ -65,11 +73,9 @@ public class UpdateFollowersServices {
 		FollowerTrendMasterModel followerTrendMaster = new FollowerTrendMasterModel();
 		followerTrendMaster.setIMCId(IMCId);
 
-		printData(followerTrendMaster);
+		Object temp = followerTrendMaster.getDBObject();
 
-		followerTrendMaster = followerTrendMaster.getDBObject();
-
-		if (followerTrendMaster == null) {
+		if (temp == null) {
 
 			FollowerTrendMasterModel updateTrendMaster = new FollowerTrendMasterModel();
 			updateTrendMaster.setIMCId(IMCId);
@@ -81,11 +87,14 @@ public class UpdateFollowersServices {
 
 			updateTrendMaster.setData(dataList);
 
-			// updateTrendMaster.addToCollection();
+			updateTrendMaster.addToCollection();
 
 			printData(updateTrendMaster);
 
 		} else {
+			
+			followerTrendMaster = (FollowerTrendMasterModel)temp;
+			
 			ArrayList<FTMData> dataList = followerTrendMaster.getData();
 
 			FTMData data = getCurrentProfileData(profileSummaryGQL);

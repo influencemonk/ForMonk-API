@@ -97,12 +97,23 @@ public class FollowerTrendMasterModel {
 
 	@SuppressWarnings("unchecked")
 	public FollowerTrendMasterModel getDBObject() {
-		Document document = CollectionHandler.GetSingleData(getObjectIterable());
-		_id = document.getObjectId("_id").toString();
-		imcId = document.getString("imcId");
-		data = (ArrayList<FTMData>) document.get("data");
+		
+		try {
+			Object objectIterable = getObjectIterable();
+			
+			if(objectIterable == null )
+				return null;
+			
+			Document document = CollectionHandler.GetSingleData(objectIterable);
+			_id = document.getObjectId("_id").toString();
+			imcId = document.getString("imcId");
+			data = (ArrayList<FTMData>) document.get("data");
 
-		return this;
+			return this;
+			
+		}catch(Exception e ) {
+			return null;
+		}
 
 	}
 

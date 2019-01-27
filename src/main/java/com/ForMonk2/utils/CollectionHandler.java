@@ -146,7 +146,7 @@ public class CollectionHandler extends DBHandler {
 		if (mainObject != null && mainObject.iterator().hasNext()) {
 			return mainObject.iterator().next();
 		} else if (!mainObject.iterator().hasNext()) {
-			throw new RuntimeException("There is object to update");
+			return null;
 		} else {
 			throw new RuntimeException("Can't convert null BSON ");
 		}
