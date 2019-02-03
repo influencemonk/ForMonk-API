@@ -32,7 +32,7 @@ public class IMCDataHelper {
 		
 		filter.setListName("socialAccounts");
 		HashMap<String, Object> matchValuesMap = new HashMap<String, Object>();
-		matchValuesMap.put("socialAccounts.socialHandle", "_soumyadeb_");
+		matchValuesMap.put("socialAccounts.socialHandle", socialHandle);
 		filter.setMatchValues(matchValuesMap);
 		
 		AggregateIterable<Document> searchResult = (AggregateIterable<Document>) CollectionHandler
@@ -41,10 +41,12 @@ public class IMCDataHelper {
 		ObjectId imcId = null;
 		
 		if(searchResult.iterator().hasNext()) {
+			System.out.println("IMDataHelper:: Already in DB");
 			Document resultDoc = searchResult.iterator().next();
 			imcId = (ObjectId) resultDoc.get("_id");
 		}
 		else {
+			System.out.println("IMDataHelper:: NOT in DB");
 			imcId = addSocialHandle(clientId, socialHandle);
 		}
 		
