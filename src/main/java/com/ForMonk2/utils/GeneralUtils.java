@@ -26,5 +26,13 @@ public static void printTimeDifference(long startTime , String API) {
 
 	logger.info("Time taken by " + API +" : " + (deltaTime/100)+"s");
 }
-	
+
+
+public static boolean checkIfStringIsNull(String s) {
+	if(s == null )
+		return true;
+	else
+		return s.trim().length() == 0;
+}
+
 }

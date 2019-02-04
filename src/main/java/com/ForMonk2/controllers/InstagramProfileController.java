@@ -15,7 +15,7 @@ import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
-import com.ForMonk2.utils.DateHandler;
+
 import com.ForMonk2.utils.GeneralUtils;
 
 @Controller
