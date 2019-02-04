@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bson.Document;
-import org.hibernate.validator.internal.util.logging.LoggerFactory;
-import org.slf4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +22,11 @@ import com.ForMonk2.utils.DateHandler;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
-@Component
+//@Component
 public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 24*60*60*1000)
 
 	public void getDataFromIMC() {
 		
@@ -44,8 +42,6 @@ public class UpdateFollowersServices {
 			if (allUsersData != null) {
 
 				for(Document doc : allUsersData) {
-					
-					Object doc1 = doc.get("socialAccounts");
 					
 					List<Document> socialAccounts = (List<Document>)doc.get("socialAccounts");
 					

@@ -191,6 +191,11 @@ public class Constants {
 		public static String INSTAGRAM = "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA";
 		public static final List<String> clientIds = Collections.unmodifiableList(
 			    new ArrayList<String>() {
+				/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 				{
 			        add(INSTAGRAM);
 			    }});

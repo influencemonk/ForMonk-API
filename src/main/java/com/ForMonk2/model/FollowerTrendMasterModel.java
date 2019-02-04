@@ -5,12 +5,15 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.springframework.cache.annotation.CachePut;
+
 
 import com.ForMonk2.utils.CollectionHandler;
 import com.ForMonk2.utils.CollectionUtils;
 import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.CollectionUtils.Operations;
 import com.google.gson.Gson;
+
 
 public class FollowerTrendMasterModel {
 
@@ -85,6 +88,7 @@ public class FollowerTrendMasterModel {
 		private long mediaCount;
 	}
 
+	@CachePut
 	public void addToCollection() {
 		CollectionHandler.startOperation(this, CollectionUtils.DBCollections.InstagramFollowerTrend,
 				CollectionUtils.Operations.create);

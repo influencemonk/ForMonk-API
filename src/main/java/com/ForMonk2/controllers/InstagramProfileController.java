@@ -1,6 +1,7 @@
 package com.ForMonk2.controllers;
 
 import org.json.simple.JSONObject;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,14 @@ import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
+import com.ForMonk2.utils.DateHandler;
+import com.ForMonk2.utils.GeneralUtils;
 
 @Controller
 @RequestMapping("/instagram")
 public class InstagramProfileController {
+	
+
 
 	InstagramDataHelper instagramDataHelper;
 
@@ -46,8 +51,14 @@ public class InstagramProfileController {
 	}
 
 	@RequestMapping(value = "/profileTrend/{imcId}", method = RequestMethod.GET)
+	@Cacheable("getProfileTrend")
 	public ResponseEntity<?> getProfileTrend(@RequestHeader(value = "ClientID") String clientId,
 			@PathVariable("imcId") String imcId) {
+		
+		String APIName ="profileTrend";
+
+		long startTime = System.currentTimeMillis();
+		
 		try {
 
 			if(! Constants.SOCIAL_CLIENTS.clientIds.contains(clientId)) {
@@ -57,8 +68,14 @@ public class InstagramProfileController {
 			FollowerTrendMasterModel followerTrendMaster = InstagramDataHelper.getProfileTrend(clientId, imcId);
 
 			if (followerTrendMaster.getData() != null && followerTrendMaster.getData().size() > 0) {
+				
+				GeneralUtils.printTimeDifference(startTime, APIName);
+				
 				return new ResponseEntity<>(followerTrendMaster, HttpStatus.OK);
 			} else {
+				
+				GeneralUtils.printTimeDifference(startTime, APIName);
+				
 				return new ResponseEntity<>(followerTrendMaster, HttpStatus.NO_CONTENT);
 
 			}
@@ -66,9 +83,12 @@ public class InstagramProfileController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
+		
 	}
 	
 	@RequestMapping(value = "/profileSummary", method = RequestMethod.GET)
+	@Cacheable("profileSummary")
 	public ResponseEntity<?> getProfileSummary(@RequestHeader(value = "ClientID") String clientId, String username, 
 												Integer maxPosts) {	
 		try {
