@@ -88,7 +88,7 @@ public class InstagramProfileController {
 	}
 	
 	@RequestMapping(value = "/profileSummary", method = RequestMethod.GET)
-	@Cacheable("profileSummary")
+	@Cacheable(Constants.CacheConstants.PROFILE_SUMMARY)
 	public ResponseEntity<?> getProfileSummary(@RequestHeader(value = "ClientID") String clientId, String username, 
 												Integer maxPosts) {	
 		try {

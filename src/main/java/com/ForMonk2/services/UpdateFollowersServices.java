@@ -26,7 +26,7 @@ import com.mongodb.client.FindIterable;
 public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")
-	@Scheduled(fixedRate = 24*60*60*1000)
+	@Scheduled(fixedDelay = 24*60*60*1000)
 
 	public void getDataFromIMC() {
 		

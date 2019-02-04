@@ -204,6 +204,10 @@ public class Constants {
 	public static final class ResponseMessages{
 		public static final String INVALID_CLIENT_ID = "Invalid client id";
 	}
+	
+	public static final class CacheConstants{
+		public static final String PROFILE_SUMMARY = "profileSummary";
+	}
 
 }
 

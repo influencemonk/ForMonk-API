@@ -31,9 +31,9 @@ public class CacheController {
 				return new ResponseEntity<>(Constants.ResponseMessages.INVALID_CLIENT_ID, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 			
-			//CacheHelper.clearAllCache(cacheManager);
+			CacheHelper.clearAllCache(cacheManager);
 			
-			cacheManager.getCacheNames().parallelStream().forEach(name -> cacheManager.getCache(name).clear());
+			//cacheManager.getCacheNames().parallelStream().forEach(name -> cacheManager.getCache(name).clear());
 			
 			return new ResponseEntity<>(HttpStatus.OK);
 			
