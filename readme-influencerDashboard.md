@@ -129,7 +129,7 @@ The intent of this collection is to display all the details of the influencer on
 ```
 {
 _id: "5kwjfjdwjfjd",
-userId: "5j34jfjoif38", // for now, it will be instagram ID
+IMCId: "5j34jfjoif38", 
 credentials: 
 [
 	{
@@ -138,8 +138,7 @@ credentials:
 		clientId: "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA"
 		socialHandle: "_soumyadeb", // this has to be updated with the UpdateFollowingService
 	}
-],
-followerTrendMasterId: "567djhfdf3"
+]
 
 }
 
