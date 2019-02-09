@@ -3,7 +3,7 @@
 A tool for instagram users to add multiple external links to their profile.
 Users will connect their instagram business account and will be able to add links with titles for different posts of his/her profile.
 
-## ISC: Profile Links Collection
+## PLC: Profile Links Collection
 
 ```
 LinksCollectionModel:
@@ -30,12 +30,12 @@ This API will return the list of all links added by the logged in user with ``` 
 
 
 ### 2. editLink (POST)
-This API will be used to edit the deatils of the links added by the user with input parameters: ``` postTitle ```, ``` postPic ```, ``` postLink ``` and ``` LCMId ```, ``` IMCId ```.
+This API will be used to edit the deatils of the links added by the user with input parameters: ``` postTitle ```, ``` postPic ```, ``` postLink ```, ``` LCMId ``` and ``` IMCId ```.
 
 
 ### 3. addLink (POST)
-This API will be used to add a new link with input parameters: ``` postTitle ```, ``` postPic ```, ``` postLink ``` and ``` LCMId ```, ``` IMCId ```.
+This API will be used to add a new link with input parameters: ``` postTitle ```, ``` postPic ```, ``` postLink ```, ``` LCMId ``` and ``` IMCId ```.
 
 
 ### 4. deleteLink (POST)
-This API will be used to delete existing link with ``` LCMId ``` and , ``` IMCId ``` as input parameter.
+This API will be used to delete existing link with ``` LCMId ``` and ``` IMCId ``` as input parameter.
