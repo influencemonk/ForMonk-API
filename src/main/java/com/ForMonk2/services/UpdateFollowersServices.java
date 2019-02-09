@@ -22,7 +22,7 @@ import com.ForMonk2.utils.DateHandler;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
-//@Component
+@Component
 public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")
@@ -58,7 +58,7 @@ public class UpdateFollowersServices {
 
 	private void startGettingFollowers(String userName, String IMCId) {
 
-		printData("user id is " + IMCId);
+		printData("Collectiing for " + userName);
 
 		InstagramDataHelper instagramDataHelper = new InstagramDataHelper();
 
@@ -85,7 +85,6 @@ public class UpdateFollowersServices {
 
 			updateTrendMaster.addToCollection();
 
-			printData(updateTrendMaster);
 
 		} else {
 			

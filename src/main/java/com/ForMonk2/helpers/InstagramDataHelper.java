@@ -122,7 +122,7 @@ public class InstagramDataHelper {
 
 		}
 
-		System.out.println("response: " + responseObj.toJSONString());
+		
 		return responseObj;
 
 	}

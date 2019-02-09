@@ -28,11 +28,19 @@ public static void printTimeDifference(long startTime , String API) {
 }
 
 
-public static boolean checkIfStringIsNull(String s) {
+public static boolean stringIsNull(String s) {
 	if(s == null )
 		return true;
 	else
 		return s.trim().length() == 0;
+}
+
+public static void log(String tag , String message) {
+	
+	if(stringIsNull(message) || stringIsNull(tag))
+		return ;
+	
+	System.out.println(String.format("%s:: 	%s", tag , message));
 }
 
 }

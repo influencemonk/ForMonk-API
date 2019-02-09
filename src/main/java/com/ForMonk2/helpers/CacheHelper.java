@@ -16,7 +16,7 @@ public class CacheHelper {
 		if(cache == null )
 			return;
 		
-		if(GeneralUtils.checkIfStringIsNull(key))
+		if(GeneralUtils.stringIsNull(key))
 			cacheManager.getCache(cacheName).clear();
 		else
 			cacheManager.getCache(cacheName).evict(key);
