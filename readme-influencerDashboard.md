@@ -129,14 +129,14 @@ The intent of this collection is to display all the details of the influencer on
 ```
 {
 _id: "5kwjfjdwjfjd",
-userId: "5j34jfjoif38",
+userId: "5j34jfjoif38", // for now, it will be instagram ID
 credentials: 
 [
 	{
 		accessToken: "sdkfjknwhebuyfguyg",
 		refreshToken: "324bwhqdeu3278mfd",
-		type: "instagram"
-		id: "23454352345",
+		clientId: "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA"
+		socialHandle: "_soumyadeb", // this has to be updated with the UpdateFollowingService
 	}
 ],
 followerTrendMasterId: "567djhfdf3"
