@@ -7,7 +7,7 @@ There would be a search bar , which would provide search options. When the brand
 
 Collections have been designed keeping the UI in mind.
 
-### ISC : 1. Influencer Search Collection/View 
+### 1. ISC :Influencer Search Collection/View 
 
 ```
 InfluencerSearchWidget :
@@ -136,7 +136,7 @@ credentials:
 		accessToken: "sdkfjknwhebuyfguyg",
 		refreshToken: "324bwhqdeu3278mfd",
 		clientId: "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA"
-		socialHandle: "_soumyadeb", // this has to be updated with the UpdateFollowingService
+		socialHandle: "_soumyadeb_", // this has to be updated with the UpdateFollowingService
 	}
 ]
 
