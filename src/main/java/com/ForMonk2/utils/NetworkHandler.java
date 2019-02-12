@@ -116,7 +116,7 @@ public class NetworkHandler {
 		}
 		
 		connection.setRequestMethod("GET");
-		
+			
 		
 		int responseCode = connection.getResponseCode();
 		

@@ -8,6 +8,8 @@ import org.springframework.core.env.Environment;
 import com.ForMonk2.model.FacebookAuthResponse;
 import com.ForMonk2.model.FacebookIDResponse;
 import com.ForMonk2.model.FacebookPagesResponse;
+import com.ForMonk2.model.InstagramBusinessAccountResponse;
+import com.ForMonk2.model.InstagramMediaResponse;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.NetworkHandler;
 import com.google.gson.Gson;
@@ -71,6 +73,47 @@ public class MonkLinkHelper {
 			return null;
 		}
 
+	}
+	
+	public static InstagramBusinessAccountResponse getInstaBusinessAccount(String instaAccountId , String accessToken) {
+		
+		try {
+			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT, instaAccountId);
+			
+			Map<String , String> params = new HashMap<String , String>();
+			params.put("fields", "instagram_business_account");
+			params.put("access_token"  , accessToken);
+			
+			String response = NetworkHandler.getInstance().sendGet(baseUrl, params);
+			
+			
+			return new Gson().fromJson(response, InstagramBusinessAccountResponse.class);
+			
+		}catch(Exception e ) {
+			return null;
+		}
+		
+		
+	}
+	
+	public static InstagramMediaResponse getInstagramPosts(String instaBusinessAccountId , String authToken) {
+		
+		try {
+			
+			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT, instaBusinessAccountId);
+			
+			Map<String , String> params = new HashMap<String , String>();
+			params.put("fields", Constants.GRAPH_API.FIELD);
+			params.put("access_token" , authToken);
+			
+			String response = NetworkHandler.getInstance().sendGet(baseUrl, params);
+			
+			return new Gson().fromJson(response, InstagramMediaResponse.class);
+			
+		}catch(Exception e ) {
+			return null;
+		}
+		
 	}
 
 }

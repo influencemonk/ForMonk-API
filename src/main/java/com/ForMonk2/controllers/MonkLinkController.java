@@ -13,6 +13,8 @@ import com.ForMonk2.helpers.MonkLinkHelper;
 import com.ForMonk2.model.FacebookAuthResponse;
 import com.ForMonk2.model.FacebookIDResponse;
 import com.ForMonk2.model.FacebookPagesResponse;
+import com.ForMonk2.model.InstagramBusinessAccountResponse;
+import com.ForMonk2.model.InstagramMediaResponse;
 import com.ForMonk2.utils.Constants;
 
 @Controller
@@ -60,5 +62,31 @@ public class MonkLinkController {
 		
 		return response == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(response , HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "getInstaBusinessAccounts" , method = RequestMethod.GET)
+	ResponseEntity<?> getInstaBusinessAccounts(String authToken , String instaAccountId) {
+		
+		InstagramBusinessAccountResponse response = MonkLinkHelper.getInstaBusinessAccount(instaAccountId, authToken);
+		
+		if(response == null )
+			return new ResponseEntity<>(Constants.INVALID_OBJECT , HttpStatus.OK);
+		else {
+			if(response.getInstagramBusinessAccount() == null )
+				return new ResponseEntity<>("This user has no business account" , HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(response , HttpStatus.OK);
+		}
+	}
+	
+	@RequestMapping(value = "getInstagramPosts" , method = RequestMethod.GET)
+	ResponseEntity<?> getInstagramPosts(String authToken , String instaBusinessAccountId){
+		
+		InstagramMediaResponse response = MonkLinkHelper.getInstagramPosts(instaBusinessAccountId, authToken);
+		
+		return response == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : 
+			new ResponseEntity<>(response , HttpStatus.OK);
+
+		
+	}
+	
 	
 }
