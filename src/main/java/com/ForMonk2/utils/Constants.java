@@ -161,7 +161,7 @@ public class Constants {
 			avgEngagements.put(249999, 2.4f);
 			avgEngagements.put(499999, 2.4f);
 			avgEngagements.put(999999, 1.3f);
-			avgEngagements.put(9999999, 1.5f);
+			avgEngagements.put(999999999, 1.5f);
 			
 			return avgEngagements;
 			
