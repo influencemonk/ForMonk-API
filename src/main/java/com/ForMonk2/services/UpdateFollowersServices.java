@@ -22,7 +22,7 @@ import com.ForMonk2.utils.DateHandler;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
-@Component
+//@Component
 public class UpdateFollowersServices {
 
 	@SuppressWarnings("unchecked")

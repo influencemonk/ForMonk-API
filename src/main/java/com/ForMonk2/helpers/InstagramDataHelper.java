@@ -125,8 +125,7 @@ public class InstagramDataHelper {
 		
 		return responseObj;
 
-	}
-
+	}  
 	/**
 	 * Method to get Profile Summary of a given user from InfluenceMonk Instagram
 	 * Scraper

@@ -51,8 +51,10 @@ dependencies {
 	//https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	
-
+	implementation 'org.springframework.social:spring-social-facebook:2.0.3.RELEASE'
 	
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+		
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 

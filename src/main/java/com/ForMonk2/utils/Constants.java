@@ -14,6 +14,13 @@ public class Constants {
 	public final static int DB_PORT = 43603;
 	public final static String MAIN_ENDPOINT = "https://influencemonk.com";
 	
+	public static final class GRAPH_API{
+		public static final String ENDPOINT = "https://graph.facebook.com/v3.2";
+		public static final String GET_ACCOUNT_ID = "/me";
+		
+	}
+	
+	
 	public final static class DB_CREDENTIALS {
 		
 		public final static String 	USERNAME = "android23235616";
@@ -60,6 +67,9 @@ public class Constants {
 	
 	
 	}
+	
+	public final static String GET_FACEBOOK_TOKEN_ENDPOINT = "https://graph.facebook.com/v3.2/oauth/access_token";
+	
 	
 	public final static class CRAWLER_CONSTANTS {
 		public static final String CRAWLER_URL = "http://influencemonk.com/insta-data/parser.php";
@@ -126,6 +136,7 @@ public class Constants {
 			return result;
 		}
 		
+	
 		public static final String getCommentsJsonVariables(String shortcode, int first, String after) {
 			String result = "";
 			
