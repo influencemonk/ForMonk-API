@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class InstagramMediaResponse {
 
+private String IMCId;
+	
 @SerializedName("name")
 @Expose
 private String name;
@@ -23,6 +25,14 @@ return name;
 
 public void setName(String name) {
 this.name = name;
+}
+
+public void setIMCId(String imcId) {
+	this.IMCId = imcId;
+}
+
+public String getImcId() {
+	return IMCId;
 }
 
 public String getId() {

@@ -21,6 +21,7 @@ this.data = data;
 
 public class FacebookPageData {
 
+	
 @SerializedName("access_token")
 @Expose
 private String accessToken;

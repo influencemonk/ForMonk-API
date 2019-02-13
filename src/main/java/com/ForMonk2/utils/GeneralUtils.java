@@ -2,6 +2,10 @@ package com.ForMonk2.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.ForMonk2.model.ApiResponseModel;
 
 
 public class GeneralUtils {
@@ -41,6 +45,16 @@ public static void log(String tag , String message) {
 		return ;
 	
 	System.out.println(String.format("%s:: 	%s", tag , message));
+}
+
+public static ResponseEntity<?> throwGenericErrorResponse() {
+	
+	ApiResponseModel<Object> responseModel = new ApiResponseModel<>();
+	responseModel.setError(true);
+	responseModel.setMessage(Constants.INVALID_OBJECT);
+	
+	return new ResponseEntity<>(responseModel, HttpStatus.BAD_REQUEST);
+	
 }
 
 }

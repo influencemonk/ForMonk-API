@@ -41,9 +41,7 @@ public class InstagramHelper {
 		
 	}
 	
-	
-	
-	
+		
 	public static String getAccessToken(String authCode) {
 		
 		GeneralUtils.printStackTrace(authCode);
@@ -76,6 +74,8 @@ public class InstagramHelper {
 		}
 		
 	}
+	
+
 	
 	
 }
