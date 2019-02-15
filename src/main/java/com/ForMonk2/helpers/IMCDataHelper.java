@@ -3,10 +3,12 @@ package com.ForMonk2.helpers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import com.ForMonk2.collectionHelpers.IMCRepositoryManager;
 import com.ForMonk2.model.IMCModel;
 import com.ForMonk2.model.IMCSocialAccount;
 import com.ForMonk2.model.NestedArrayFilterModel;
@@ -75,6 +77,10 @@ public class IMCDataHelper {
 		ObjectId imcId = (ObjectId) CollectionHandler.startOperation(imcRecord, DBCollections.InfluencerMasterCollection, Operations.create);
 		
 		return imcId;
+	}
+	
+	public static Optional<IMCModel> getIMCDataById(String id , IMCRepositoryManager imcRepositoryManager) {
+		return imcRepositoryManager.findById(id);
 	}
 
 }

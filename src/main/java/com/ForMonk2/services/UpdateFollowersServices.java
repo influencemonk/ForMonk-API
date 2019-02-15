@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.ForMonk2.collectionHelpers.IFTRepositoryManager;
 import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.model.FollowerTrendMasterModel.FTMData;
@@ -22,9 +24,12 @@ import com.ForMonk2.utils.DateHandler;
 import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
-//@Component
+@Component
 public class UpdateFollowersServices {
 
+	@Autowired
+	IFTRepositoryManager iftRepositoryManager;
+	
 	@SuppressWarnings("unchecked")
 	@Scheduled(fixedDelay = 24*60*60*1000)
 
@@ -69,8 +74,8 @@ public class UpdateFollowersServices {
 		FollowerTrendMasterModel followerTrendMaster = new FollowerTrendMasterModel();
 		followerTrendMaster.setIMCId(IMCId);
 
-		Object temp = followerTrendMaster.getDBObject();
-
+		Object temp = iftRepositoryManager.findByimcId(IMCId);
+			
 		if (temp == null) {
 
 			FollowerTrendMasterModel updateTrendMaster = new FollowerTrendMasterModel();

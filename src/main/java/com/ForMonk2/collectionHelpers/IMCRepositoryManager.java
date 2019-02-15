@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -88,7 +89,9 @@ public class IMCRepositoryManager implements IMCRepository{
 	@Override
 	public Optional<IMCModel> findById(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		Optional<IMCModel> optionIMCModel = Optional.ofNullable(mongoTemplate.findById(id, IMCModel.class));
+		
+		return optionIMCModel;
 	}
 
 	@Override
