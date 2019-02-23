@@ -31,14 +31,14 @@ public class MonkLinkController {
 	private IMCRepositoryManager imcManager;
 	
 	@RequestMapping(value = "v1/getOauthTokens" , method = RequestMethod.GET)
-	ResponseEntity<?> getTokens(@RequestHeader(value = "ClientID") String clientId , String authCode) {
+	ResponseEntity<?> getTokens(@RequestHeader(value = "ClientID") String clientId , String authCode , String redirectUri) {
 		
 		
 		if(! Constants.SOCIAL_CLIENTS.clientIds.contains(clientId)) {
 			return new ResponseEntity<>(Constants.ResponseMessages.INVALID_CLIENT_ID, HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		
-		FacebookAuthResponse facebookAuthResponse = MonkLinkHelper.getFacebookTokens(authCode , env);
+		FacebookAuthResponse facebookAuthResponse = MonkLinkHelper.getFacebookTokens(authCode, redirectUri , env);
 		
 		if(facebookAuthResponse == null )
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -94,8 +94,8 @@ public class MonkLinkController {
 	}
 	
 	@RequestMapping(value = "v2/getFacebookPages" , method = RequestMethod.GET)
-	ResponseEntity<?> getFacebookPages(String authCode) {
-		ApiResponseModel<FacebookPagesResponse> response = MonkLinkHelper.getFacebookPages(authCode, env);
+	ResponseEntity<?> getFacebookPagesV2(String authCode , String redirectUri) {
+		ApiResponseModel<FacebookPagesResponse> response = MonkLinkHelper.getFacebookPages(authCode, redirectUri, env);
 		
 		if(response == null ) {
 			

@@ -19,13 +19,13 @@ import com.google.gson.Gson;
 
 public class MonkLinkHelper {
 
-	public static FacebookAuthResponse getFacebookTokens(String code, Environment env) {
+	public static FacebookAuthResponse getFacebookTokens(String code , String redirectUri, Environment env) {
 		try {
 
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("client_id", env.getProperty("FACEBOOK.APP_ID"));
 			params.put("client_secret", env.getProperty("FACEBOOK.SECRET"));
-			params.put("redirect_uri", env.getProperty("FACEBOOK.REDIRECT_URL"));
+			params.put("redirect_uri", 	redirectUri);
 			params.put("code", code);
 
 			String response = NetworkHandler.getInstance().sendGet(Constants.GET_FACEBOOK_TOKEN_ENDPOINT, params);
@@ -120,12 +120,12 @@ public class MonkLinkHelper {
 		
 	}
 	
-	public static ApiResponseModel<FacebookPagesResponse> getFacebookPages(String authCode , Environment env) {
+	public static ApiResponseModel<FacebookPagesResponse> getFacebookPages(String authCode, String redirectUri , Environment env) {
 		
 		try {
 			ApiResponseModel<FacebookPagesResponse> mainResponse = new ApiResponseModel<FacebookPagesResponse>();
 			
-			FacebookAuthResponse authData = getFacebookTokens(authCode , env);
+			FacebookAuthResponse authData = getFacebookTokens(authCode, redirectUri , env);
 			
 			if(authData == null)
 			{

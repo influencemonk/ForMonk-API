@@ -70,11 +70,7 @@ public class Constants {
 	               
 	            }
 	        });
-		
-	
 		}	
-	
-	
 	}
 	
 	public final static class CRAWLER_CONSTANTS {
