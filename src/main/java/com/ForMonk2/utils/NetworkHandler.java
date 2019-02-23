@@ -72,27 +72,6 @@ public class NetworkHandler {
 	
 	public String formatString(Map<String,Object> params) throws UnsupportedEncodingException {
 		
-//		if(params == null ) {
-//			return "";
-//		}
-//		
-//		StringBuilder result = new StringBuilder();
-//        boolean first = true;
-//        for(Map.Entry<String, String> entry : params.entrySet()){
-//            if (first)
-//                first = false;
-//            else
-//                result.append("&");
-//
-//            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-//            result.append("=");
-//            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-//        }
-//        
-//        GeneralUtils.printStackTrace(result.toString());
-//
-//        return result.toString();
-		
 
 		String queryString = "";
 		
@@ -137,7 +116,7 @@ public class NetworkHandler {
 		}
 		
 		connection.setRequestMethod("GET");
-		
+			
 		
 		int responseCode = connection.getResponseCode();
 		
@@ -168,6 +147,12 @@ public class NetworkHandler {
 	
 	public String sendGet(String baseUrl , Map queries) throws IOException {
 		return sendGet(baseUrl, queries, null);
+	}
+	
+	public String formatBaseUrl(String baseUrl , String...paths) {
+		for(String path : paths)
+			baseUrl += "/"+path;
+		return baseUrl;
 	}
 	
 	

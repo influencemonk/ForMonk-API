@@ -9,4 +9,8 @@ public class DateHandler {
 		return instant.getEpochSecond();
 	}
 	
+	public static String getCurrentUTCTime() {
+		return Instant.now().toString();
+	}
+	
 }

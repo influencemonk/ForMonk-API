@@ -1,4 +1,5 @@
 
+
 package com.ForMonk2.utils;
 
 import java.util.ArrayList;
@@ -21,6 +22,21 @@ public class Constants {
 		public final static String DB_NAME = "infodb";
 		public final static String USER1_CRED = "mongodb://android23235616:wart414ways465@ds143603.mlab.com:43603/infodb";
 	}
+	
+	public static final class GRAPH_API{
+		public static final String ENDPOINT = "https://graph.facebook.com/v3.2";
+		public static final String GET_ACCOUNT_ID = "/me";
+		public static final String FIELD = "name,id,"
+				+ "media{comments_count,media_url,"
+				+ "media_type,permalink,owner,caption"
+				+ ",username,comments.limit(10){text,"
+				+ "timestamp,user,username},thumbnail_url,like_count}";
+		
+	}
+	
+	public static final String INVALID_OBJECT = "Invalid object request. Please check your parameters";
+	
+	public final static String GET_FACEBOOK_TOKEN_ENDPOINT = "https://graph.facebook.com/v3.2/oauth/access_token";
 	
 	public final static class INSTAGRAM_CONSTANTS{
 		
@@ -54,11 +70,7 @@ public class Constants {
 	               
 	            }
 	        });
-		
-	
 		}	
-	
-	
 	}
 	
 	public final static class CRAWLER_CONSTANTS {
@@ -210,4 +222,3 @@ public class Constants {
 	}
 
 }
-

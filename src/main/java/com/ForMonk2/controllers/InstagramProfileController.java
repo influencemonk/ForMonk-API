@@ -1,6 +1,7 @@
 package com.ForMonk2.controllers;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ForMonk2.collectionHelpers.IFTRepositoryManager;
+import com.ForMonk2.collectionHelpers.IMCRepositoryManager;
 import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
-
-import com.ForMonk2.utils.GeneralUtils;
 
 @Controller
 @RequestMapping("/instagram")
 public class InstagramProfileController {
 	
 
+	@Autowired
+	IMCRepositoryManager imcRepositoryManager;
+	
+	@Autowired
+	IFTRepositoryManager iftRepositoryManager;
+	
 
 	InstagramDataHelper instagramDataHelper;
 
@@ -55,29 +62,28 @@ public class InstagramProfileController {
 	public ResponseEntity<?> getProfileTrend(@RequestHeader(value = "ClientID") String clientId,
 			@PathVariable("imcId") String imcId) {
 		
-		String APIName ="profileTrend";
 
-		long startTime = System.currentTimeMillis();
 		
 		try {
 
+			
 			if(! Constants.SOCIAL_CLIENTS.clientIds.contains(clientId)) {
 				return new ResponseEntity<>(Constants.ResponseMessages.INVALID_CLIENT_ID, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 			
-			FollowerTrendMasterModel followerTrendMaster = InstagramDataHelper.getProfileTrend(clientId, imcId);
+			if(! imcRepositoryManager.findById(imcId).isPresent()) {
+				return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+			}
+			
+			FollowerTrendMasterModel followerTrendMaster = InstagramDataHelper.getProfileTrend(clientId, imcId , iftRepositoryManager);
 
 			if (followerTrendMaster.getData() != null && followerTrendMaster.getData().size() > 0) {
-				
-				GeneralUtils.printTimeDifference(startTime, APIName);
-				
-				return new ResponseEntity<>(followerTrendMaster, HttpStatus.OK);
-			} else {
-				
-				GeneralUtils.printTimeDifference(startTime, APIName);
-				
-				return new ResponseEntity<>(followerTrendMaster, HttpStatus.NO_CONTENT);
 
+				return new ResponseEntity<>(followerTrendMaster, HttpStatus.OK);
+			} else {				
+							
+				return new ResponseEntity<>(followerTrendMaster, HttpStatus.NO_CONTENT);
+				
 			}
 
 		} catch (Exception e) {

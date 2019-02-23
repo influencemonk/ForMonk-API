@@ -13,7 +13,7 @@ import com.ForMonk2.helpers.InstagramHelper;
 @Controller
 public class InstagramController {
 	
-	
+	@Deprecated
 	@GetMapping("/instaLogin")
     @ResponseBody
     public RedirectView instaLogin() {
@@ -30,6 +30,7 @@ public class InstagramController {
 		
     }
 	
+	@Deprecated
 	@GetMapping("/instaCallbackUrl")
 	@ResponseBody
 	

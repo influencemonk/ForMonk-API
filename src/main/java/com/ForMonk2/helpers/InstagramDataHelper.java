@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.ForMonk2.collectionHelpers.IFTRepositoryManager;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.Constants;
@@ -125,8 +126,7 @@ public class InstagramDataHelper {
 		
 		return responseObj;
 
-	}
-
+	}  
 	/**
 	 * Method to get Profile Summary of a given user from InfluenceMonk Instagram
 	 * Scraper
@@ -534,14 +534,14 @@ public class InstagramDataHelper {
 		return responseObj;
 	}
 	
-	public static FollowerTrendMasterModel getProfileTrend(String clientId , String imcId) {
+	public static FollowerTrendMasterModel getProfileTrend(String clientId , String imcId , IFTRepositoryManager iftRepositoryManager) {
 		try {
 			
-			FollowerTrendMasterModel followerTrendMasterModel = new FollowerTrendMasterModel();
+			FollowerTrendMasterModel followerTrendMasterModel =  iftRepositoryManager.findByimcId(imcId);
 			
-			followerTrendMasterModel.setIMCId(imcId);
-			
-			followerTrendMasterModel = followerTrendMasterModel.getDBObject();
+			if(followerTrendMasterModel == null) {
+				followerTrendMasterModel = new FollowerTrendMasterModel(); // data doesnt exists
+			}
 			
 			return followerTrendMasterModel;
 			

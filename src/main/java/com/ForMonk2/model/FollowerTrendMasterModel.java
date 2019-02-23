@@ -3,10 +3,10 @@ package com.ForMonk2.model;
 
 import java.util.ArrayList;
 
-import org.bson.Document;
+
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.springframework.cache.annotation.CachePut;
-
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.ForMonk2.utils.CollectionHandler;
 import com.ForMonk2.utils.CollectionUtils;
@@ -14,6 +14,7 @@ import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.CollectionUtils.Operations;
 import com.google.gson.Gson;
 
+@Document(collection = "InstagramFollowerTrend")
 
 public class FollowerTrendMasterModel {
 
@@ -97,28 +98,6 @@ public class FollowerTrendMasterModel {
 	private Object getObjectIterable() {
 		return CollectionHandler.startOperation(new Gson().toJson(this), DBCollections.InstagramFollowerTrend,
 				Operations.read);
-	}
-
-	@SuppressWarnings("unchecked")
-	public FollowerTrendMasterModel getDBObject() {
-		
-		try {
-			Object objectIterable = getObjectIterable();
-			
-			if(objectIterable == null )
-				return null;
-			
-			Document document = CollectionHandler.GetSingleData(objectIterable);
-			_id = document.getObjectId("_id").toString();
-			imcId = document.getString("imcId");
-			data = (ArrayList<FTMData>) document.get("data");
-
-			return this;
-			
-		}catch(Exception e ) {
-			return null;
-		}
-
 	}
 
 	public void updateData(UpdateModel updateData) {
