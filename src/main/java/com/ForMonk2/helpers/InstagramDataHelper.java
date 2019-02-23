@@ -214,7 +214,7 @@ public class InstagramDataHelper {
 	 * Method to get All Data for profile analytics of a given user from Instagram
 	 * GraphQL API
 	 */
-	public String getFullProfileAnalyticsGQL(String username) {
+	public JSONObject getFullProfileAnalyticsGQL(String username) {
 
 		String response = "";
 
@@ -246,7 +246,7 @@ public class InstagramDataHelper {
 
 				responseObj.put("type", "invalid_username");
 				responseObj.put("message", "Username not found!");
-				return responseObj.toJSONString();
+				return responseObj;
 			}
 
 			if (!crawlerResposne.isEmpty() && null != crawlerResposne && !crawlerResposne.equals("")) {
@@ -355,9 +355,9 @@ public class InstagramDataHelper {
 
 		responseObj.put("data", profileInfoObj);
 
-		response = responseObj.toJSONString();
+		//response = responseObj.toJSONString();
 
-		return response;
+		return responseObj;
 	}
 
 	/**

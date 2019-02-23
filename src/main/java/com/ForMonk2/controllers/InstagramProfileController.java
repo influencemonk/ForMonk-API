@@ -45,9 +45,9 @@ public class InstagramProfileController {
 		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.getics);
 	}
 
-	@RequestMapping(value = "/currentAnalyticsGQL", method = RequestMethod.GET)
+	@RequestMapping(value = "/advancedAnalytics/profile", method = RequestMethod.GET)
 	public @ResponseBody JSONObject getCurrentAnalyticsGQL(String username) {
-		return instagramDataHelper.getFullProfileAnalytics(username);
+		return instagramDataHelper.getFullProfileAnalyticsGQL(username);
 	}
 
 	@RequestMapping(value = "/profileTrend/{imcId}", method = RequestMethod.GET)
