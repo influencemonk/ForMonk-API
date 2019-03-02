@@ -170,8 +170,22 @@ data:
 
 This collection will store all the followers of an influencer per day.  
 
+### 7. InstagramPredictedTrend Collection
+
+```
+_id : "BSONID",
+IMCID : "BSON ID from IMC",
+profileTrend : [
+	{
+		timestamp : 12345,
+		likes : 1000
+	}
+]
 
 
+
+```
+InstagramPredictedTrend will be used to store to like predictions
 
 
 
