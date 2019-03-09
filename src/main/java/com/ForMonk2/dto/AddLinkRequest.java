@@ -1,16 +1,14 @@
 package com.ForMonk2.dto;
 
-import com.ForMonk2.entity.ProfileLink;
-
 public class AddLinkRequest {
 	
-	private ProfileLink linkData;
+	private ProfileLinkDto linkData;
 
-	public ProfileLink getLinkData() {
+	public ProfileLinkDto getLinkData() {
 		return linkData;
 	}
 
-	public void setLinkData(ProfileLink linkData) {
+	public void setLinkData(ProfileLinkDto linkData) {
 		this.linkData = linkData;
 	}
 

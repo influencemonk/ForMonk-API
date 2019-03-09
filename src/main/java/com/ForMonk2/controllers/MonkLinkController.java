@@ -152,7 +152,7 @@ public class MonkLinkController {
 	}
 	
 	
-	@GetMapping(value = "v2/getLinks")
+	@GetMapping(value = "v1/getLinks")
 	ResponseEntity<?> getLinksForUser(@RequestHeader(value = "ClientID") String clientId, @RequestParam(name="imcId", required=true) String imcId) {
 		
 		ApiResponseModel<GetLinksResponse> getLinksResponse = monkLinkHelper.getLinksForUser(clientId, imcId);
@@ -165,7 +165,7 @@ public class MonkLinkController {
 	}
 	
 	
-	@PutMapping(value = "v2/addLink")
+	@PutMapping(value = "v1/addLink")
 	ResponseEntity<?> addLinkForUser(@RequestBody AddLinkRequest request) {
 		
 		ApiResponseModel<AddLinkResponse> saveResponse = monkLinkHelper.addLinkForUser(request);
@@ -179,7 +179,7 @@ public class MonkLinkController {
 	
 	
 	
-	@PostMapping(value = "v2/updateLink")
+	@PostMapping(value = "v1/updateLink")
 	ResponseEntity<?> updateLinkForPlId(@RequestBody UpdateLinkRequest request) {
 		
 		ApiResponseModel<UpdateLinkResponse> updateResponse = monkLinkHelper.updateLinkDetails(request);
@@ -192,7 +192,7 @@ public class MonkLinkController {
 	}
 	
 	
-	@DeleteMapping(value = "v2/deleteLink/{plId}")
+	@DeleteMapping(value = "v1/deleteLink/{plId}")
 	ResponseEntity<?> deleteLinkForPlId(@PathVariable("plId") String plId) {
 		
 		ApiResponseModel<DeleteLinkResponse> updateResponse = monkLinkHelper.deleteLinkForPlId(plId);

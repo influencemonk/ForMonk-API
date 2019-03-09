@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.ForMonk2.dao.IMCRepositoryDao;
 import com.ForMonk2.dao.PLRepositoryDao;
 import com.ForMonk2.dto.GetLinksResponse;
+import com.ForMonk2.dto.ProfileLinkDto;
 import com.ForMonk2.dto.UpdateLinkRequest;
 import com.ForMonk2.dto.UpdateLinkResponse;
 import com.ForMonk2.dto.AddLinkRequest;
@@ -268,7 +269,14 @@ public class MonkLinkHelper {
 		
 		try {
 		
-			ProfileLink profileLink = request.getLinkData();
+			ProfileLinkDto profileLinkDto = request.getLinkData();
+			
+			ProfileLink profileLink = new ProfileLink();
+			profileLink.setClientId(profileLinkDto.getClientId());
+			profileLink.setPostImageUrl(profileLinkDto.getPostImageUrl());
+			profileLink.setImcId(profileLinkDto.getImcId());
+			profileLink.setLinkTitle(profileLinkDto.getLinkTitle());
+			profileLink.setLinkUrl(profileLinkDto.getLinkUrl());
 					
 			if(profileLink.getImcId() == null || profileLink.getImcId().equals("")) {
 				return null;
