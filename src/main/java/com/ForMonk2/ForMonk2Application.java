@@ -26,7 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * */
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackageClasses = IMCRepositoryManager.class)
+@EnableMongoRepositories(basePackageClasses = IMCRepositoryDao.class)
 @EnableSwagger2
 @EnableWebMvc
 @EnableScheduling
