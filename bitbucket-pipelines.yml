@@ -8,9 +8,17 @@ image: openjdk:8
 pipelines:
   default:
     - step:
+        deployment: production
         caches:
           - gradle
         script: # Modify the commands below to build your repository.
           # You must commit the Gradle wrapper to your repository
           # https://docs.gradle.org/current/userguide/gradle_wrapper.html
           - bash ./gradlew build
+          
+          - pipe: atlassian/sftp-deploy:0.3.1
+            variables:
+                  USER: 'root'
+                  SERVER: '139.59.36.78'
+                  REMOTE_PATH: '/home/formonk/build/'
+                  LOCAL_PATH: 'build'
