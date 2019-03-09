@@ -269,7 +269,7 @@ public class MonkLinkHelper {
 		
 		try {
 		
-			ProfileLinkDto profileLinkDto = request.getLinkData();
+			ProfileLinkDto profileLinkDto = request;
 			
 			ProfileLink profileLink = new ProfileLink();
 			profileLink.setClientId(profileLinkDto.getClientId());
