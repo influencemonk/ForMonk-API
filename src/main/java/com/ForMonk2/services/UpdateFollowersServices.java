@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.ForMonk2.collectionHelpers.IFTRepositoryManager;
+import com.ForMonk2.dao.IFTRepositoryDao;
 import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.model.FollowerTrendMasterModel.FTMData;
@@ -28,7 +28,7 @@ import com.mongodb.client.FindIterable;
 public class UpdateFollowersServices {
 
 	@Autowired
-	IFTRepositoryManager iftRepositoryManager;
+	IFTRepositoryDao iftRepositoryManager;
 	
 	@SuppressWarnings("unchecked")
 	@Scheduled(fixedDelay = 24*60*60*1000)

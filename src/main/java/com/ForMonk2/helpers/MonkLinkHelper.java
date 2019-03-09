@@ -1,11 +1,23 @@
 package com.ForMonk2.helpers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
-import com.ForMonk2.collectionHelpers.IMCRepositoryManager;
+import com.ForMonk2.dao.IMCRepositoryDao;
+import com.ForMonk2.dao.PLRepositoryDao;
+import com.ForMonk2.dto.GetLinksResponse;
+import com.ForMonk2.dto.UpdateLinkRequest;
+import com.ForMonk2.dto.UpdateLinkResponse;
+import com.ForMonk2.dto.AddLinkRequest;
+import com.ForMonk2.dto.AddLinkResponse;
+import com.ForMonk2.dto.DeleteLinkResponse;
+import com.ForMonk2.entity.ProfileLink;
 import com.ForMonk2.model.ApiResponseModel;
 import com.ForMonk2.model.FacebookAuthResponse;
 import com.ForMonk2.model.FacebookIDResponse;
@@ -13,12 +25,22 @@ import com.ForMonk2.model.FacebookPagesResponse;
 import com.ForMonk2.model.IMCModel;
 import com.ForMonk2.model.InstagramBusinessAccountResponse;
 import com.ForMonk2.model.InstagramMediaResponse;
+import com.ForMonk2.constants.ApiConstants.RESPONSE;
+
 import com.ForMonk2.utils.Constants;
+import com.ForMonk2.utils.GeneralUtils;
 import com.ForMonk2.utils.NetworkHandler;
 import com.google.gson.Gson;
 
-public class MonkLinkHelper {
 
+
+@Component
+public class MonkLinkHelper {
+	
+
+	@Autowired
+	private PLRepositoryDao plRepositoryDao;
+	
 	public static FacebookAuthResponse getFacebookTokens(String code , String redirectUri, Environment env) {
 		try {
 
@@ -161,7 +183,7 @@ public class MonkLinkHelper {
 		
 	}
 	
-	public static ApiResponseModel<InstagramMediaResponse> getInstagramPostsV2(String authToken , String facebookPageId, IMCRepositoryManager imcManager) {
+	public static ApiResponseModel<InstagramMediaResponse> getInstagramPostsV2(String authToken , String facebookPageId, IMCRepositoryDao imcManager) {
 		
 		ApiResponseModel<InstagramMediaResponse> response = new ApiResponseModel<InstagramMediaResponse>();
 		InstagramBusinessAccountResponse businessAccount = getInstaBusinessAccount(facebookPageId , authToken);
@@ -198,5 +220,192 @@ public class MonkLinkHelper {
 	}
 	
 	
-
+	/**
+	 * Method to get list of all links saved by a given user
+	 * in ProfileLink collection
+	 * 
+	 * @param clientId
+	 * @param imcId
+	 * @return
+	 */
+	public ApiResponseModel<GetLinksResponse> getLinksForUser(String clientId, String imcId){
+		
+		ApiResponseModel<GetLinksResponse> response = null;
+		
+		try {
+			
+			List<ProfileLink> postLinkList = plRepositoryDao.findByImcId(imcId);
+			GetLinksResponse getLinksResponse = new GetLinksResponse();
+			getLinksResponse.setProfileLinks(postLinkList);
+			getLinksResponse.setCount(postLinkList.size());
+	
+			response = new ApiResponseModel<>();
+			response.setServerObject(getLinksResponse);
+			response.setError(false);
+			response.setMessage(RESPONSE.SUCCESS);
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return response;
+	}
+	
+	
+	/**
+	 * Method to save link data for a given user in ProfileLink collection
+	 * 
+	 * @param clientId
+	 * @param request
+	 * @return
+	 */
+	public ApiResponseModel<AddLinkResponse> addLinkForUser(AddLinkRequest request){
+		
+		ApiResponseModel<AddLinkResponse> response = null;
+		
+		AddLinkResponse addLinkResponse = new AddLinkResponse();
+		
+		try {
+		
+			ProfileLink profileLink = request.getLinkData();
+					
+			if(profileLink.getImcId() == null || profileLink.getImcId().equals("")) {
+				return null;
+			}
+			
+			String currentTimestamp = GeneralUtils.getFormattedTimestamp();
+			
+			profileLink.setCreateOn(currentTimestamp);
+			profileLink.setUpdateOn(currentTimestamp);
+			
+			profileLink = plRepositoryDao.insert(profileLink);
+			
+			if(profileLink.getId() != null && !profileLink.getId().equals("")) {
+				
+				addLinkResponse.setPlId(profileLink.getId());
+				
+				response = new ApiResponseModel<>();
+				
+				response.setServerObject(addLinkResponse);
+				
+				response.setError(false);
+				response.setMessage(RESPONSE.SUCCESS);
+				
+			}
+			
+		}
+		catch(Exception e) {
+			response = null;
+			e.printStackTrace();
+			
+		}
+		
+		return response;
+		
+	}
+	
+	
+	
+	/**
+	 * Method to update profile link details for a given plId
+	 * in ProfileLink collection
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public ApiResponseModel<UpdateLinkResponse> updateLinkDetails(UpdateLinkRequest request){
+		
+		ApiResponseModel<UpdateLinkResponse> response = null; 
+		
+		try {
+			
+			String plId = request.getPlId();
+			String linkTitle = request.getLinkTitle();
+			String linkUrl = request.getLinkUrl();
+			String postImageUrl = request.getPostImageUrl();
+			
+			Optional<ProfileLink> plSearchResult = plRepositoryDao.findById(plId);
+			
+			response = new ApiResponseModel<>();
+			
+			if(plSearchResult.isPresent()) {
+				
+				ProfileLink profileLink = plSearchResult.get();
+				
+				if(linkTitle != null && !linkTitle.equals("")) {
+					profileLink.setLinkTitle(linkTitle);
+				}
+				
+				if(linkUrl != null && !linkUrl.equals("")) {
+					profileLink.setLinkUrl(linkUrl);
+				}
+				
+				if(postImageUrl != null && !postImageUrl.equals("")) {
+					profileLink.setPostImageUrl(postImageUrl);
+				}
+				
+				String currentTimestamp = GeneralUtils.getFormattedTimestamp();
+				
+				profileLink.setUpdateOn(currentTimestamp);
+				
+				profileLink = plRepositoryDao.save(profileLink);
+				
+				UpdateLinkResponse updateLinkResponse = new UpdateLinkResponse();
+				updateLinkResponse.setPlId(profileLink.getId());
+				
+				response.setServerObject(updateLinkResponse);
+				response.setError(false);
+				response.setMessage(RESPONSE.SUCCESS);
+				
+			}
+			else {
+				response.setError(true);
+				response.setMessage(RESPONSE.FAILED);
+			}
+			
+		}
+		catch(Exception e) {
+			response = null;
+			e.printStackTrace();
+		}
+		
+		return response;
+		
+	}
+	
+	
+	
+	/**
+	 * Method to delete the document in ProfileLink collection with provided plId
+	 *  
+	 * @param plId
+	 * @return
+	 */
+	public ApiResponseModel<DeleteLinkResponse> deleteLinkForPlId(String plId){
+		
+		ApiResponseModel<DeleteLinkResponse> response = null;
+		
+		try {
+			
+			plRepositoryDao.deleteById(plId);
+			
+			response = new ApiResponseModel<>();
+			
+			response.setError(false);
+			response.setMessage(RESPONSE.SUCCESS);
+			
+		}
+		catch(Exception e) {
+			
+			response = null;
+			e.printStackTrace();
+			
+		}
+		
+		return response;
+		
+	}
+	
+	
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ForMonk2.collectionHelpers.IFTRepositoryManager;
-import com.ForMonk2.collectionHelpers.IMCRepositoryManager;
+import com.ForMonk2.dao.IFTRepositoryDao;
+import com.ForMonk2.dao.IMCRepositoryDao;
 import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.Constants;
@@ -25,10 +25,10 @@ public class InstagramProfileController {
 	
 
 	@Autowired
-	IMCRepositoryManager imcRepositoryManager;
+	IMCRepositoryDao imcRepositoryManager;
 	
 	@Autowired
-	IFTRepositoryManager iftRepositoryManager;
+	IFTRepositoryDao iftRepositoryManager;
 	
 
 	InstagramDataHelper instagramDataHelper;
@@ -40,16 +40,6 @@ public class InstagramProfileController {
 	@RequestMapping(value = "/profileSummaryGQL", method = RequestMethod.GET)
 	public @ResponseBody JSONObject getProfileSummaryGQL(String username, Integer maxPosts) {
 		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.gSheet);
-	}
-
-	@RequestMapping(value = "/profileSummaryDI", method = RequestMethod.GET)
-	public @ResponseBody JSONObject getProfileSummaryDI(String username, Integer maxPosts) {
-		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.diet);
-	}
-
-	@RequestMapping(value = "/profileSummaryGE", method = RequestMethod.GET)
-	public @ResponseBody JSONObject getProfileSummaryGE(String username, Integer maxPosts) {
-		return instagramDataHelper.getProfileSummaryGQL(username, maxPosts, ApiUser.getics);
 	}
 
 	@RequestMapping(value = "/advancedAnalytics/profile", method = RequestMethod.GET)

@@ -54,8 +54,6 @@ public class InstagramHelper {
 		query.put("redirect_uri", Constants.INSTAGRAM_CONSTANTS.REDIRECT_URL);
 		query.put("code", authCode);
 		
-		
-		
 		try {
 			
 			String response = NetworkHandler.getInstance().sendPOST(Constants.INSTAGRAM_CONSTANTS.ACCESS_TOKEN_BASE_URL, query);
