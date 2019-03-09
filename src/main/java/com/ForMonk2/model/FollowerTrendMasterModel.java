@@ -95,7 +95,7 @@ public class FollowerTrendMasterModel {
 				CollectionUtils.Operations.create);
 	}
 
-	private Object getObjectIterable() {
+	public Object getObjectIterable() {
 		return CollectionHandler.startOperation(new Gson().toJson(this), DBCollections.InstagramFollowerTrend,
 				Operations.read);
 	}

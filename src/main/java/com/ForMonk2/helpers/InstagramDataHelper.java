@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.ForMonk2.collectionHelpers.IFTRepositoryManager;
+import com.ForMonk2.dao.IFTRepositoryDao;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.CollectionUtils.DBCollections;
 import com.ForMonk2.utils.Constants;
@@ -215,8 +215,6 @@ public class InstagramDataHelper {
 	 * GraphQL API
 	 */
 	public JSONObject getFullProfileAnalyticsGQL(String username) {
-
-		String response = "";
 
 		JSONObject responseObj = new JSONObject();
 
@@ -534,7 +532,7 @@ public class InstagramDataHelper {
 		return responseObj;
 	}
 	
-	public static FollowerTrendMasterModel getProfileTrend(String clientId , String imcId , IFTRepositoryManager iftRepositoryManager) {
+	public static FollowerTrendMasterModel getProfileTrend(String clientId , String imcId , IFTRepositoryDao iftRepositoryManager) {
 		try {
 			
 			FollowerTrendMasterModel followerTrendMasterModel =  iftRepositoryManager.findByimcId(imcId);
