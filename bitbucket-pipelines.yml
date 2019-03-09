@@ -22,3 +22,4 @@ pipelines:
                   SERVER: '139.59.36.78'
                   REMOTE_PATH: '/home/formonk/build/'
                   LOCAL_PATH: 'build'
+                  SSH_KEY: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAm1f8ne5QK6OUPyFlMnok2njfErzEja5dKsVeLV9o5yY+7QzL2EOE6e48KkY/7uFLHFnN1UZKF0wqrv5+VgAl0XAVDYHURYklhEif7fFUIiUKCiOJ/c7igpr+M1jc3ZskEaMLGJEzXw7wdbBPJUogO7JxEPeSVSc/hYrrz5TpfK27uhKu9eP+suoYWTf4imDSy20DBRPvk96MGoH3By2LoWhnJii1SWaEnRH3s01dPXZ8fY5lWwRPzjQtyuuwYSKiDgirF1BAWALeQVOQJEDLijzXNrNspFyetiIjPxL4fCrabg4QuEK1yVVJSuTP1joikvg3zj3iGANf4at3ERDOdQ== rsa-key-20190309'
