@@ -1,4 +1,4 @@
-package com.ForMonk2.collectionHelpers;
+package com.ForMonk2.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +13,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.ForMonk2.interfaces.IFTRepository;
 import com.ForMonk2.model.FollowerTrendMasterModel;
+import com.ForMonk2.repo.IFTRepository;
 
 @Repository
-public class IFTRepositoryManager implements IFTRepository{
+public class IFTRepositoryDao implements IFTRepository{
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -150,7 +150,7 @@ public class IFTRepositoryManager implements IFTRepository{
 
 	@Override
 	public FollowerTrendMasterModel findByimcId(String imcId) {
-		// TODO Auto-generated method stub
+
 		Query query = new Query();
 		query.addCriteria(Criteria.where("imcId").is(imcId));
 		query.limit(1);

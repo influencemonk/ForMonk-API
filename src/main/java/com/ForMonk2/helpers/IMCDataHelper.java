@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import com.ForMonk2.collectionHelpers.IMCRepositoryManager;
+import com.ForMonk2.dao.IMCRepositoryDao;
 import com.ForMonk2.model.IMCModel;
 import com.ForMonk2.model.IMCSocialAccount;
 import com.ForMonk2.model.NestedArrayFilterModel;
@@ -79,7 +79,7 @@ public class IMCDataHelper {
 		return imcId;
 	}
 	
-	public static Optional<IMCModel> getIMCDataById(String id , IMCRepositoryManager imcRepositoryManager) {
+	public static Optional<IMCModel> getIMCDataById(String id , IMCRepositoryDao imcRepositoryManager) {
 		return imcRepositoryManager.findById(id);
 	}
 

@@ -1,10 +1,9 @@
-package com.ForMonk2.collectionHelpers;
+package com.ForMonk2.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -14,16 +13,16 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import com.ForMonk2.interfaces.IMCRepository;
 import com.ForMonk2.model.IMCModel;
 import com.ForMonk2.model.IMCSocialAccount;
+import com.ForMonk2.repo.IMCRepository;
 import com.ForMonk2.utils.CollectionUtils;
 
 
-@Component
-public class IMCRepositoryManager implements IMCRepository{
+@Repository
+public class IMCRepositoryDao implements IMCRepository{
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -38,7 +37,7 @@ public class IMCRepositoryManager implements IMCRepository{
 
 	@Override
 	public List<IMCModel> findAll() {
-		// TODO Auto-generated method stub
+		
 		return mongoTemplate.findAll(IMCModel.class);
 	}
 
@@ -50,7 +49,7 @@ public class IMCRepositoryManager implements IMCRepository{
 
 	@Override
 	public <S extends IMCModel> S insert(S entity) {
-		// TODO Auto-generated method stub
+
 		 mongoTemplate.insert(entity);
 		 
 		 return entity;
@@ -88,7 +87,7 @@ public class IMCRepositoryManager implements IMCRepository{
 
 	@Override
 	public Optional<IMCModel> findById(String id) {
-		// TODO Auto-generated method stub
+		
 		Optional<IMCModel> optionIMCModel = Optional.ofNullable(mongoTemplate.findById(id, IMCModel.class));
 		
 		return optionIMCModel;
@@ -175,12 +174,9 @@ public class IMCRepositoryManager implements IMCRepository{
 
 	@Override
 	public IMCModel findBysocialAccounts(String socialHandle , String clientId) {
-		// TODO Auto-generated method stub
-		
 		
 		MatchOperation matchStage = Aggregation.match(new Criteria("socialAccounts.socialHandle").is(socialHandle));
 		MatchOperation clientIdMath = Aggregation.match(Criteria.where("socialAccounts.clientId").is(clientId));
-		//LimitOperation limitOperation = Aggregation.limit(1);
 		
 		Aggregation aggregation 
 		  = Aggregation.newAggregation(matchStage,clientIdMath);

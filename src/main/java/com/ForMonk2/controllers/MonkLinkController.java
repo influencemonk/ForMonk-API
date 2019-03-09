@@ -5,11 +5,24 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ForMonk2.collectionHelpers.IMCRepositoryManager;
+import com.ForMonk2.dao.IMCRepositoryDao;
+import com.ForMonk2.dto.GetLinksResponse;
+import com.ForMonk2.dto.UpdateLinkRequest;
+import com.ForMonk2.dto.UpdateLinkResponse;
+import com.ForMonk2.dto.AddLinkRequest;
+import com.ForMonk2.dto.AddLinkResponse;
+import com.ForMonk2.dto.DeleteLinkResponse;
 import com.ForMonk2.helpers.MonkLinkHelper;
 import com.ForMonk2.model.ApiResponseModel;
 import com.ForMonk2.model.FacebookAuthResponse;
@@ -28,7 +41,11 @@ public class MonkLinkController {
 	private Environment env;
 	
 	@Autowired
-	private IMCRepositoryManager imcManager;
+	private IMCRepositoryDao imcManager;
+	
+	@Autowired
+	private MonkLinkHelper monkLinkHelper;
+	
 	
 	@RequestMapping(value = "v1/getOauthTokens" , method = RequestMethod.GET)
 	ResponseEntity<?> getTokens(@RequestHeader(value = "ClientID") String clientId , String authCode , String redirectUri) {
@@ -46,6 +63,7 @@ public class MonkLinkController {
 			return new ResponseEntity<>(facebookAuthResponse , HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value = "v1/getFacebookAccountId" , method = RequestMethod.GET)
 	ResponseEntity<?> getFacebookAccountId(@RequestHeader("ClientID") String clientId , String authToken) {
 		if(! Constants.SOCIAL_CLIENTS.clientIds.contains(clientId)) {
@@ -62,12 +80,14 @@ public class MonkLinkController {
 		
 	}
 	
+	
 	@RequestMapping(value = "v1/getFacebookPages" , method = RequestMethod.GET)
 	ResponseEntity<?> getFacebookPages(String authToken , String facebookUserId) {
 		FacebookPagesResponse response = MonkLinkHelper.getFacebookPages(facebookUserId, authToken);
 		
 		return response == null ? new ResponseEntity<>(HttpStatus.BAD_REQUEST) : new ResponseEntity<>(response , HttpStatus.OK);
 	}
+	
 	
 	@RequestMapping(value = "v1/getInstaBusinessAccounts" , method = RequestMethod.GET)
 	ResponseEntity<?> getInstaBusinessAccounts(String authToken , String instaAccountId) {
@@ -83,6 +103,7 @@ public class MonkLinkController {
 		}
 	}
 	
+	
 	@RequestMapping(value = "v1/getInstagramPosts" , method = RequestMethod.GET)
 	ResponseEntity<?> getInstagramPosts(String authToken , String instaBusinessAccountId){
 		
@@ -92,6 +113,7 @@ public class MonkLinkController {
 			new ResponseEntity<>(response , HttpStatus.OK);
 		
 	}
+	
 	
 	@RequestMapping(value = "v2/getFacebookPages" , method = RequestMethod.GET)
 	ResponseEntity<?> getFacebookPagesV2(String authCode , String redirectUri) {
@@ -115,6 +137,7 @@ public class MonkLinkController {
 		}
 	}
 	
+	
 	@RequestMapping(value = "v2/getInstagramPosts" , method = RequestMethod.GET)
 	ResponseEntity<?> getInstagramPostsv2(String authToken , String facebookPageId) {
 		
@@ -128,6 +151,58 @@ public class MonkLinkController {
 		
 	}
 	
+	
+	@GetMapping(value = "v2/getLinks")
+	ResponseEntity<?> getLinksForUser(@RequestHeader(value = "ClientID") String clientId, @RequestParam(name="imcId", required=true) String imcId) {
+		
+		ApiResponseModel<GetLinksResponse> getLinksResponse = monkLinkHelper.getLinksForUser(clientId, imcId);
+		
+		if(getLinksResponse == null )
+			return GeneralUtils.throwGenericErrorResponse();
+	
+		return new ResponseEntity<>(getLinksResponse , getLinksResponse.getError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+	
+	}
+	
+	
+	@PutMapping(value = "v2/addLink")
+	ResponseEntity<?> addLinkForUser(@RequestBody AddLinkRequest request) {
+		
+		ApiResponseModel<AddLinkResponse> saveResponse = monkLinkHelper.addLinkForUser(request);
+		
+		if(saveResponse == null )
+			return GeneralUtils.throwGenericErrorResponse();
+	
+		return new ResponseEntity<>(saveResponse , saveResponse.getError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+	
+	}
+	
+	
+	
+	@PostMapping(value = "v2/updateLink")
+	ResponseEntity<?> updateLinkForPlId(@RequestBody UpdateLinkRequest request) {
+		
+		ApiResponseModel<UpdateLinkResponse> updateResponse = monkLinkHelper.updateLinkDetails(request);
+		
+		if(updateResponse == null )
+			return GeneralUtils.throwGenericErrorResponse();
+	
+		return new ResponseEntity<>(updateResponse , updateResponse.getError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+	
+	}
+	
+	
+	@DeleteMapping(value = "v2/deleteLink/{plId}")
+	ResponseEntity<?> deleteLinkForPlId(@PathVariable("plId") String plId) {
+		
+		ApiResponseModel<DeleteLinkResponse> updateResponse = monkLinkHelper.deleteLinkForPlId(plId);
+		
+		if(updateResponse == null )
+			return GeneralUtils.throwGenericErrorResponse();
+	
+		return new ResponseEntity<>(updateResponse , updateResponse.getError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+	
+	}
 	
 	
 	
