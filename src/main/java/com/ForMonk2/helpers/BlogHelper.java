@@ -34,7 +34,7 @@ public class BlogHelper {
 		try {
 			
 			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("InfluenceMonk"));
+			message.setFrom(new InternetAddress("influencemonkdev@rediff.com"));
 			
 			for(String to : sendEmailRequest.to) {
 				if(emailIsValid(to))
@@ -63,9 +63,9 @@ public class BlogHelper {
 			
 			message.setContent(multipart);
 			
-			String emailHost = "smtp.gmail.com";
-			String fromUser = "influencemonk";
-			String fromUserEmailPassword = "InfluenceMonk@0210";
+			String emailHost = "in-v3.mailjet.com";
+			String fromUser = "bb22201a06bbe0894f27fa838a809c89";
+			String fromUserEmailPassword = "86c99e5da96b53df9c210f2281e4152c";
 			
 			Transport transport = session.getTransport("smtp");
 			

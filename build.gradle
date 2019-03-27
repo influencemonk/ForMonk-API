@@ -51,6 +51,9 @@ dependencies {
 	//https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	
+	// https://mvnrepository.com/artifact/com.mailjet/mailjet-client
+	implementation group: 'com.mailjet', name: 'mailjet-client', version: '4.1.1'
+	
 	implementation 'org.springframework.social:spring-social-facebook:2.0.3.RELEASE'
 	
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
