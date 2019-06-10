@@ -20,6 +20,8 @@ import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
 import com.ForMonk2.utils.CrawlerDataParser;
 import com.ForMonk2.utils.NetworkHandler;
 
+
+
 @SuppressWarnings("unchecked")
 public class InstagramDataHelper {
 

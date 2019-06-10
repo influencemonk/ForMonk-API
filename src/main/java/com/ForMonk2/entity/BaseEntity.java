@@ -18,7 +18,5 @@ public class BaseEntity {
 	public void setUpdateOn(String updateOn) {
 		this.updateOn = updateOn;
 	}
-	
-	
-	
+		
 }

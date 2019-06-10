@@ -1,4 +1,4 @@
-package com.ForMonk2.model;
+package com.ForMonk2.model; 
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

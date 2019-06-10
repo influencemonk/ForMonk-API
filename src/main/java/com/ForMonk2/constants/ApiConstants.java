@@ -1,4 +1,4 @@
-package com.ForMonk2.constants;
+package com.ForMonk2.constants; 
 
 public class ApiConstants {
 	

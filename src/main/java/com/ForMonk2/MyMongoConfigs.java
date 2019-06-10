@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.WriteResultChecking;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
-
-import com.ForMonk2.utils.Constants;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
@@ -25,6 +23,7 @@ public class MyMongoConfigs extends AbstractMongoConfiguration {
 
     @Override
     public MongoClient mongoClient() {
+
     	MongoClientURI uri = new MongoClientURI(uriString);
     	MongoClient mongoClient = new MongoClient(uri);
         return mongoClient;

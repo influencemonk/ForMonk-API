@@ -2,6 +2,7 @@ package com.ForMonk2.controllers;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ import com.ForMonk2.helpers.InstagramDataHelper;
 import com.ForMonk2.model.FollowerTrendMasterModel;
 import com.ForMonk2.utils.Constants;
 import com.ForMonk2.utils.Constants.INSTA_SCRAPER.ApiUser;
+
+
+
 
 @Controller
 @RequestMapping("/instagram")
@@ -51,11 +55,7 @@ public class InstagramProfileController {
 	@Cacheable("getProfileTrend")
 	public ResponseEntity<?> getProfileTrend(@RequestHeader(value = "ClientID") String clientId,
 			@PathVariable("imcId") String imcId) {
-		
-
-		
 		try {
-
 			
 			if(! Constants.SOCIAL_CLIENTS.clientIds.contains(clientId)) {
 				return new ResponseEntity<>(Constants.ResponseMessages.INVALID_CLIENT_ID, HttpStatus.UNPROCESSABLE_ENTITY);
@@ -70,10 +70,8 @@ public class InstagramProfileController {
 			if (followerTrendMaster.getData() != null && followerTrendMaster.getData().size() > 0) {
 
 				return new ResponseEntity<>(followerTrendMaster, HttpStatus.OK);
-			} else {				
-							
+			} else {
 				return new ResponseEntity<>(followerTrendMaster, HttpStatus.NO_CONTENT);
-				
 			}
 
 		} catch (Exception e) {
