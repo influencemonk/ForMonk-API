@@ -26,11 +26,12 @@ public class Constants {
 	public static final class GRAPH_API{
 		public static final String ENDPOINT = "https://graph.facebook.com/v3.2";
 		public static final String GET_ACCOUNT_ID = "/me";
-		public static final String FIELD = "name,id,"
+		public static final String POSTS_FIELD = "follows_count,followers_count,name,id,"
 				+ "media{comments_count,media_url,"
 				+ "media_type,permalink,owner,caption"
 				+ ",username,comments.limit(10){text,"
 				+ "timestamp,user,username},thumbnail_url,like_count}";
+		public static final String USER_INSIGHTS_FIELD = "audience_country,audience_locale,audience_gender_age";
 		
 	}
 	

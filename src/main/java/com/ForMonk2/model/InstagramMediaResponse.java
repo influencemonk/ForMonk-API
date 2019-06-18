@@ -19,6 +19,14 @@ private String id;
 @Expose
 private Media media;
 
+@SerializedName("follows_count")
+@Expose
+private int follows_count;
+
+@SerializedName("followers_count")
+@Expose
+private int followers_count;
+
 public String getName() {
 return name;
 }
@@ -51,7 +59,19 @@ public void setMedia(Media media) {
 this.media = media;
 }
 
-public class Media {
+	public int getFollowers_count() {
+		return followers_count;
+	}
+
+	public void setFollowers_count(int followers_count) {
+		this.followers_count = followers_count;
+	}
+
+	public int getFollows_count() {
+		return follows_count;
+	}
+
+	public class Media {
 
 @SerializedName("data")
 @Expose

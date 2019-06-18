@@ -55,14 +55,14 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '2.0.3.RELEASE'
-	
-	
+
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly('org.projectlombok:lombok:1.16.20')
+
 	implementation 'org.springframework.social:spring-social-facebook:2.0.3.RELEASE'
 	
 	compile group: 'com.netflix.eureka', name: 'eureka-client', version: '1.9.9'
 
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.1.4.RELEASE'
 	
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
