@@ -69,7 +69,7 @@ public class MonkLinkHelper {
 			map.put("format", "json");
 
 			String response = NetworkHandler.getInstance()
-					.sendGet(Constants.GRAPH_API.ENDPOINT + Constants.GRAPH_API.GET_ACCOUNT_ID, map);
+					.sendGet(Constants.GRAPH_API.BASE_URL + Constants.GRAPH_API.GET_ACCOUNT_ID, map);
 
 			FacebookIDResponse facebookIDResponse = new Gson().fromJson(response, FacebookIDResponse.class);
 
@@ -82,7 +82,7 @@ public class MonkLinkHelper {
 	public static FacebookPagesResponse getFacebookPages(String facebookUserId, String authToken) {
 
 		try {
-			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT, facebookUserId,
+			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.BASE_URL, facebookUserId,
 					"accounts");
 
 			Map<String, String> params = new HashMap<String, String>();
@@ -101,7 +101,7 @@ public class MonkLinkHelper {
 		
 		try {
 			
-			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT, facebookPageId);
+			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.BASE_URL, facebookPageId);
 			
 			Map<String , String> params = new HashMap<String , String>();
 			params.put("fields", "instagram_business_account");
@@ -122,7 +122,7 @@ public class MonkLinkHelper {
 		
 		try {
 			
-			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT, instaBusinessAccountId);
+			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.BASE_URL, instaBusinessAccountId);
 			
 			Map<String , String> params = new HashMap<String , String>();
 			params.put("fields", Constants.GRAPH_API.POSTS_FIELD);
@@ -184,7 +184,7 @@ public class MonkLinkHelper {
 
 			InstagramInsightsResponseModel instagramInsights = new InstagramInsightsResponseModel();
 			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(
-					Constants.GRAPH_API.ENDPOINT,
+					Constants.GRAPH_API.BASE_URL,
 					instaBusinessAccountId ,
 					"insights");
 
@@ -257,7 +257,7 @@ public class MonkLinkHelper {
 		InstagramMediaResponse instagramMediaResponse = postsResponse.getServerObject();
 		Assert.notNull(instagramMediaResponse , "No instagram data available");
 
-		core.setImcId(instagramMediaResponse.getImcId());
+		core.setImcId(instagramMediaResponse.getIMCId());
 		core.setFollowersCount(instagramMediaResponse.getFollowers_count());
 		core.setFollowsCount(instagramMediaResponse.getFollows_count());
 		core.setNumberOfPosts(instagramMediaResponse.getMedia().getData().size());
@@ -487,7 +487,7 @@ public class MonkLinkHelper {
 
 	}
 	public static InstagramPostsInsightsResponseModel getInstagramPostAnalytics(String authToken , String postId) {
-		String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT , postId , "insights");
+		String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.BASE_URL, postId , "insights");
 		HashMap<String , String> params = new HashMap<>();
 		params.put("access_token" , authToken);
 		params.put("metric" , "engagement");

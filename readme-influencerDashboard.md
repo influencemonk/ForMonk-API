@@ -89,7 +89,7 @@ profileSummary:
 	[
 		{
 			type: "email",
-			value: "soumyadeb1809@gmail.com",
+			insightValue: "soumyadeb1809@gmail.com",
 			tags: "personal"
 		}
 	]
