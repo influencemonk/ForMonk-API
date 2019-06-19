@@ -7,8 +7,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import com.ForMonk2.model.*;
+import com.google.gson.internal.LinkedTreeMap;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -35,11 +38,9 @@ import org.springframework.util.Assert;
 
 @Component
 public class MonkLinkHelper {
-	
 
 	@Autowired
 	private PLRepositoryDao plRepositoryDao;
-	
 	public static FacebookAuthResponse getFacebookTokens(String code , String redirectUri, Environment env) {
 		try {
 
@@ -59,7 +60,6 @@ public class MonkLinkHelper {
 			return null;
 		}
 	}
-
 	public static FacebookIDResponse getFacebookAccountId(String authToken) {
 		try {
 
@@ -79,7 +79,6 @@ public class MonkLinkHelper {
 			return null;
 		}
 	}
-
 	public static FacebookPagesResponse getFacebookPages(String facebookUserId, String authToken) {
 
 		try {
@@ -98,7 +97,6 @@ public class MonkLinkHelper {
 		}
 
 	}
-	
 	public static InstagramBusinessAccountResponse getInstaBusinessAccount(String facebookPageId , String accessToken) {
 		
 		try {
@@ -120,7 +118,6 @@ public class MonkLinkHelper {
 		
 		
 	}
-	
 	public static InstagramMediaResponse getInstagramPosts(String instaBusinessAccountId , String authToken) {
 		
 		try {
@@ -140,7 +137,6 @@ public class MonkLinkHelper {
 		}
 		
 	}
-	
 	public static ApiResponseModel<FacebookPagesResponse> getFacebookPages(String authCode, String redirectUri , Environment env) {
 		
 		try {
@@ -182,9 +178,11 @@ public class MonkLinkHelper {
 		
 	}
 
-	public static JSONObject getInstagramInsights(String authToken, String instaBusinessAccountId){
+	@SuppressWarnings("unchecked")
+	public static List<InstagramInsightsData> getInstagramInsights(String authToken, String instaBusinessAccountId){
 		try {
 
+			InstagramInsightsResponseModel instagramInsights = new InstagramInsightsResponseModel();
 			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(
 					Constants.GRAPH_API.ENDPOINT,
 					instaBusinessAccountId ,
@@ -197,13 +195,20 @@ public class MonkLinkHelper {
 
 			String response = NetworkHandler.getInstance().sendGet(baseUrl, params);
 
-			return new Gson().fromJson(response , JSONObject.class);
+			JSONObject jsonResponse =  new Gson().fromJson(response , JSONObject.class);
+			ArrayList<LinkedTreeMap> data = (ArrayList) jsonResponse.get("data");
+//			data.parallelStream().forEach(value -> {
+//				instagramInsights.getAudienceResponse().add(getInstagramInsightsData((LinkedTreeMap) value));
+//			});
+
+			return data.stream().parallel().map(x -> getInstagramInsightsData(x)).collect(Collectors.toList());
+			//return instagramInsights.getAudienceResponse();
 
 		}catch(Exception e ) {
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
-	
 	public static ApiResponseModel<InstagramMediaResponse> getInstagramPostsV2(String authToken , String facebookPageId, IMCRepositoryDao imcManager) {
 		
 		ApiResponseModel<InstagramMediaResponse> response = new ApiResponseModel<InstagramMediaResponse>();
@@ -221,8 +226,7 @@ public class MonkLinkHelper {
 			response.setMessage("Unable to get posts from business account");
 			return response;
 		}
-		
-		
+
 		IMCModel imcModel = imcManager.findBysocialAccounts(mediaResponse.getName(), Constants.INSTAGRAM_CONSTANTS.CLIENT_ID);
 		
 		if(imcModel == null ) {
@@ -239,7 +243,6 @@ public class MonkLinkHelper {
 		return response;
 		
 	}
-	
 	public static ApiResponseModel<InstagramAnalyticsModel> getInstagramAnalytics(String facebookPageId , String authToken , IMCRepositoryDao imcRepositoryDao)
 	{
 		ApiResponseModel<InstagramAnalyticsModel> response = new ApiResponseModel<>();
@@ -281,7 +284,6 @@ public class MonkLinkHelper {
 			return response;
 		}
 	}
-
 	/**
 	 * Method to get list of all links saved by a given user
 	 * in ProfileLink collection
@@ -313,7 +315,6 @@ public class MonkLinkHelper {
 		
 		return response;
 	}
-
 	/**
 	 * Method to save link data for a given user in ProfileLink collection
 	 *
@@ -371,7 +372,6 @@ public class MonkLinkHelper {
 		return response;
 		
 	}
-	
 	/**
 	 * Method to update profile link details for a given plId
 	 * in ProfileLink collection
@@ -438,7 +438,6 @@ public class MonkLinkHelper {
 		return response;
 		
 	}
-	
 	/**
 	 * Method to delete the document in ProfileLink collection with provided plId
 	 *  
@@ -469,7 +468,6 @@ public class MonkLinkHelper {
 		return response;
 		
 	}
-
 	private static double getAverageLikes(InstagramMediaResponse instagramMediaResponse) {
 		return instagramMediaResponse
 				.getMedia()
@@ -479,7 +477,6 @@ public class MonkLinkHelper {
 				.reduce(0 , (a, b)-> a + b);
 
 	}
-
 	private static double getAverageComments(InstagramMediaResponse instagramMediaResponse) {
 		return instagramMediaResponse
 				.getMedia()
@@ -489,7 +486,6 @@ public class MonkLinkHelper {
 				.reduce(0 , (a, b)-> a + b);
 
 	}
-
 	public static InstagramPostsInsightsResponseModel getInstagramPostAnalytics(String authToken , String postId) {
 		String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.ENDPOINT , postId , "insights");
 		HashMap<String , String> params = new HashMap<>();
@@ -502,7 +498,6 @@ public class MonkLinkHelper {
 			return null;
 		}
 	}
-
 	public static double getTotalPostsEngagement(String authToken , String instagramBussinessId){
 		InstagramMediaResponse instagramMediaResponse = getInstagramPosts(instagramBussinessId , authToken);
 		Assert.notNull(instagramBussinessId , "Unable to get any posts");
@@ -520,7 +515,6 @@ public class MonkLinkHelper {
 
 		return totalEngagement;
 	}
-
 	public static double getTotalPostsEngagementV2(String authToken , String instagramBussinessId) {
 		ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -547,12 +541,44 @@ public class MonkLinkHelper {
 
 		return -1;
 	}
-
 	private static double getEngagementFromPostAnalytics(InstagramPostsInsightsResponseModel model) {
 		try{
 			return model.getData().get(0).getValues().get(0).getValue();
 		}catch (Exception e){
 			return -10000;
 		}
+	}
+	private static InstagramInsightsData.InsightsValues  getInsightValueFromHash(String key , double value , double total){
+		InstagramInsightsData.InsightsValues insightsValues = new InstagramInsightsData.InsightsValues();
+		insightsValues.setName(new Locale("" , key).getDisplayName());
+		insightsValues.setValue((int) value);
+		insightsValues.setPercetange((value / total) * 100);
+
+		return insightsValues;
+	}
+
+	private static InstagramInsightsData getInstagramInsightsData(LinkedTreeMap dataValues){
+		InstagramInsightsData instagramInsightsData = new InstagramInsightsData();
+
+		LinkedTreeMap values =
+				(LinkedTreeMap)
+						((LinkedTreeMap)
+								((ArrayList)dataValues.get("values"))
+										.get(0))
+								.get("value");
+		Set<String> countries = values.keySet();
+		Double sum = countries.stream().map(x -> Double.parseDouble(values.get(x).toString())).reduce(0.0 , (a, b) -> a + b);
+
+		instagramInsightsData.setName((String) dataValues.get("name"));
+		instagramInsightsData.setDescription((String) dataValues.get("description"));
+		instagramInsightsData.setId((String) dataValues.get("id"));
+		instagramInsightsData.setTitle((String) dataValues.get("title"));
+
+		List<InstagramInsightsData.InsightsValues> insightsValues;
+		insightsValues = countries.stream().map(x -> getInsightValueFromHash(x , Double.parseDouble(values.get(x).toString()) , sum)).collect(Collectors.toList());
+
+		instagramInsightsData.setInsights(insightsValues);
+
+		return instagramInsightsData;
 	}
 }

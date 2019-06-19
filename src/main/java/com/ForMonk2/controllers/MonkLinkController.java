@@ -130,7 +130,7 @@ public class MonkLinkController {
 		return new ResponseEntity<>(instagramMediaResponse , instagramMediaResponse.getError() ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "v1/getInstagmUserInsights" , method = RequestMethod.GET)
+	@RequestMapping(value = "v1/getInstagramUserInsights" , method = RequestMethod.GET)
 	ResponseEntity<?> getInstagramInsights(@ValidClientId @RequestHeader(value = "ClientID") String clientId ,
 										   @RequestParam @NotNull String authToken ,
 										   @RequestParam @NotEmpty String instagramBusinessId)

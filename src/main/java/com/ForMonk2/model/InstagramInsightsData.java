@@ -7,6 +7,13 @@ import java.util.List;
 
 @Data
 public class InstagramInsightsData {
-    private String name , period , title , description , id;
-    private List<HashMap<String , String>> values;
+    private String name ,title , description , id;
+    private List<InsightsValues> insights;
+
+    @Data
+    public static class InsightsValues{
+       private String name;
+       private double percetange;
+       private int value;
+    }
 }
