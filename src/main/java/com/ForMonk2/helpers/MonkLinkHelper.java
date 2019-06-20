@@ -177,7 +177,6 @@ public class MonkLinkHelper {
 		}
 		
 	}
-
 	@SuppressWarnings("unchecked")
 	public static List<InstagramInsightsData> getInstagramInsights(String authToken, String instaBusinessAccountId){
 		try {
@@ -556,7 +555,6 @@ public class MonkLinkHelper {
 
 		return insightsValues;
 	}
-
 	private static InstagramInsightsData getInstagramInsightsData(LinkedTreeMap dataValues){
 		InstagramInsightsData instagramInsightsData = new InstagramInsightsData();
 
