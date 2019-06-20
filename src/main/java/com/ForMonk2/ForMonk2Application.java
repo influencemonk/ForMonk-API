@@ -26,7 +26,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 @EnableCaching
 @EnableDiscoveryClient
-@EnableAutoConfiguration
 
 public class ForMonk2Application implements WebMvcConfigurer {
 
