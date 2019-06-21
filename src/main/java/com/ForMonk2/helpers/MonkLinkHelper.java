@@ -98,7 +98,6 @@ public class MonkLinkHelper {
 
 	}
 	public static InstagramBusinessAccountResponse getInstaBusinessAccount(String facebookPageId , String accessToken) {
-		
 		try {
 			
 			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(Constants.GRAPH_API.BASE_URL, facebookPageId);
@@ -115,8 +114,6 @@ public class MonkLinkHelper {
 		}catch(Exception e ) {
 			return null;
 		}
-		
-		
 	}
 	public static InstagramMediaResponse getInstagramPosts(String instaBusinessAccountId , String authToken) {
 		
