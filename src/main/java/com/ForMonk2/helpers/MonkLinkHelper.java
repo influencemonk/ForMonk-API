@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import com.ForMonk2.Comparators.InsightsComparators;
 import com.ForMonk2.model.*;
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.simple.JSONArray;
@@ -178,7 +179,6 @@ public class MonkLinkHelper {
 	public static List<InstagramInsightsData> getInstagramInsights(String authToken, String instaBusinessAccountId){
 		try {
 
-			InstagramInsightsResponseModel instagramInsights = new InstagramInsightsResponseModel();
 			String baseUrl = NetworkHandler.getInstance().formatBaseUrl(
 					Constants.GRAPH_API.BASE_URL,
 					instaBusinessAccountId ,
@@ -193,12 +193,8 @@ public class MonkLinkHelper {
 
 			JSONObject jsonResponse =  new Gson().fromJson(response , JSONObject.class);
 			ArrayList<LinkedTreeMap> data = (ArrayList) jsonResponse.get("data");
-//			data.parallelStream().forEach(value -> {
-//				instagramInsights.getAudienceResponse().add(getInstagramInsightsData((LinkedTreeMap) value));
-//			});
 
-			return data.stream().parallel().map(x -> getInstagramInsightsData(x)).collect(Collectors.toList());
-			//return instagramInsights.getAudienceResponse();
+			return data.stream().parallel().map(x -> getInstagramInsightsData(x , x.get("name").toString())).collect(Collectors.toList());
 
 		}catch(Exception e ) {
 			e.printStackTrace();
@@ -544,15 +540,25 @@ public class MonkLinkHelper {
 			return -10000;
 		}
 	}
-	private static InstagramInsightsData.InsightsValues  getInsightValueFromHash(String key , double value , double total){
+	private static InstagramInsightsData.InsightsValues  getInsightValueFromHash(String key , double value , double total , String dataType){
+		String name;
+		if(dataType.toLowerCase().equals("audience_locale")) {
+			name = new Locale(key.split("_")[0] , "").getDisplayLanguage()
+					+ "("+
+					new Locale("",key.split("_")[1]).getDisplayCountry()
+					+")";
+		}else{
+			name = new Locale("" , key).getDisplayCountry();
+		}
+
 		InstagramInsightsData.InsightsValues insightsValues = new InstagramInsightsData.InsightsValues();
-		insightsValues.setName(new Locale("" , key).getDisplayName());
+		insightsValues.setName(name);
 		insightsValues.setValue((int) value);
 		insightsValues.setPercetange((value / total) * 100);
 
 		return insightsValues;
 	}
-	private static InstagramInsightsData getInstagramInsightsData(LinkedTreeMap dataValues){
+	private static InstagramInsightsData getInstagramInsightsData(LinkedTreeMap dataValues  , String dataType){
 		InstagramInsightsData instagramInsightsData = new InstagramInsightsData();
 
 		LinkedTreeMap values =
@@ -570,8 +576,10 @@ public class MonkLinkHelper {
 		instagramInsightsData.setTitle((String) dataValues.get("title"));
 
 		List<InstagramInsightsData.InsightsValues> insightsValues;
-		insightsValues = countries.stream().map(x -> getInsightValueFromHash(x , Double.parseDouble(values.get(x).toString()) , sum)).collect(Collectors.toList());
-
+		insightsValues = countries.stream()
+				.map(x -> getInsightValueFromHash(x , Double.parseDouble(values.get(x).toString()) , sum, dataType))
+				.collect(Collectors.toList());
+		insightsValues.sort(new InsightsComparators());
 		instagramInsightsData.setInsights(insightsValues);
 
 		return instagramInsightsData;

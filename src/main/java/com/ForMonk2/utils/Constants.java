@@ -31,8 +31,8 @@ public class Constants {
 				+ "media{comments_count,media_url,timestamp,"
 				+ "media_type,permalink,owner,caption,"
 				+ "username,thumbnail_url,like_count,"
-				+ "insights.metric(engagement,impressions,reach)}";
-		public static final String USER_INSIGHTS_FIELD = "audience_country,audience_locale,audience_gender_age";
+				+ "insights.metric(engagement,impressions,reach)},media_count";
+		public static final String USER_INSIGHTS_FIELD = "audience_country,audience_locale,audience_gender_age,audience_city";
 		
 	}
 	
@@ -205,11 +205,7 @@ public class Constants {
 		public static String INSTAGRAM = "CMCCULQOUVBFRZFFEWSGRHDZYDSTRUNVIPMFMITSPRQHHNNWWHFOBPYYDABA";
 		public static final List<String> clientIds = Collections.unmodifiableList(
 			    new ArrayList<String>() {
-				/**
-					 * 
-					 */
 					private static final long serialVersionUID = 1L;
-
 				{
 			        add(INSTAGRAM);
 			    }});

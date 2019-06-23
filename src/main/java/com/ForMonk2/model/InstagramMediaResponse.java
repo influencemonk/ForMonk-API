@@ -21,6 +21,10 @@ public class InstagramMediaResponse {
     @Expose
     private Media media;
 
+    @SerializedName("media_count")
+    @Expose
+    private int media_count;
+
     @SerializedName("follows_count")
     @Expose
     private int follows_count;
@@ -111,6 +115,14 @@ public class InstagramMediaResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getMedia_count() {
+        return media_count;
+    }
+
+    public void setMedia_count(int media_count) {
+        this.media_count = media_count;
     }
 
     public class Media {
