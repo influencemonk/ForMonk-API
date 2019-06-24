@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import com.ForMonk2.Comparators.InsightsComparators;
 import com.ForMonk2.model.*;
 import com.google.gson.internal.LinkedTreeMap;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -465,7 +464,7 @@ public class MonkLinkHelper {
 				.getMedia()
 				.getData()
 				.stream()
-				.map(x -> x.getLikeCount())
+				.map(x -> x.getLike_count())
 				.reduce(0 , (a, b)-> a + b);
 
 	}
@@ -474,7 +473,7 @@ public class MonkLinkHelper {
 				.getMedia()
 				.getData()
 				.stream()
-				.map(x -> x.getCommentsCount())
+				.map(x -> x.getComments_count())
 				.reduce(0 , (a, b)-> a + b);
 
 	}

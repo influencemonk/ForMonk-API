@@ -156,7 +156,7 @@ public class InstagramMediaResponse {
 
         @SerializedName("comments_count")
         @Expose
-        private Integer commentsCount;
+        private Integer comments_count;
 
         @SerializedName("media_url")
         @Expose
@@ -188,7 +188,7 @@ public class InstagramMediaResponse {
 
         @SerializedName("like_count")
         @Expose
-        private Integer likeCount;
+        private Integer like_count;
 
         @SerializedName("id")
         @Expose
@@ -206,12 +206,12 @@ public class InstagramMediaResponse {
         @Expose
         private Insights insights;
 
-        public Integer getCommentsCount() {
-            return commentsCount;
+        public Integer getComments_count() {
+            return comments_count;
         }
 
-        public void setCommentsCount(Integer commentsCount) {
-            this.commentsCount = commentsCount;
+        public void setComments_count(Integer comments_count) {
+            this.comments_count = comments_count;
         }
 
         public String getMediaUrl() {
@@ -270,12 +270,12 @@ public class InstagramMediaResponse {
             this.comments = comments;
         }
 
-        public Integer getLikeCount() {
-            return likeCount;
+        public Integer getLike_count() {
+            return like_count;
         }
 
-        public void setLikeCount(Integer likeCount) {
-            this.likeCount = likeCount;
+        public void setLike_count(Integer like_count) {
+            this.like_count = like_count;
         }
 
         public String getId() {
@@ -482,8 +482,8 @@ public class InstagramMediaResponse {
         public String getPeriod() { return period; }
         public void setPeriod(String value) { this.period = value; }
 
-        public List<InsightValue> getInsightValues() { return values; }
-        public void setInsightValues(List<InsightValue> insightValue) { this.values = values; }
+        public List<InsightValue> getValues() { return values; }
+        public void setValues(List<InsightValue> values) { this.values = values; }
 
         public String getTitle() { return title; }
         public void setTitle(String value) { this.title = value; }

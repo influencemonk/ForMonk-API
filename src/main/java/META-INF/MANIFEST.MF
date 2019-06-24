@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: com.ForMonk2
+Main-Class: com.ForMonk2.ForMonk2Application
+
